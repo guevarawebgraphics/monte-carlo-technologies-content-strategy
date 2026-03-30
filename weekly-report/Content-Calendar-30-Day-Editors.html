@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Monte Carlo Technologies — 30-Day Editor Calendar (1 post / day)</title>
+  <title>Monte Carlo Technologies — April 2026 60 Posts (2/Day) Editor Calendar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
@@ -68,13 +68,16 @@
     .text-mc-accent { color: var(--mc-nav-start) !important; }
     .table-calendar td { vertical-align: top; }
     .col-time { white-space: nowrap; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
-    tr.row-cat-svc > td { background-color: rgba(92, 109, 142, 0.08); }
-    tr.row-cat-co > td { background-color: rgba(92, 109, 142, 0.045); }
-    tr.row-cat-per > td { background-color: rgba(74, 90, 120, 0.09); }
-    tr.row-cat-ev > td { background-color: rgba(140, 110, 85, 0.1); }
-    tr.row-cat-svc:hover > td, tr.row-cat-co:hover > td, tr.row-cat-per:hover > td, tr.row-cat-ev:hover > td {
-      filter: brightness(0.97);
-    }
+    /* Reach / Prime + category: dual-slot tints */
+    tr.row-reach.row-cat-svc > td { background-color: rgba(92, 109, 142, 0.12); }
+    tr.row-prime.row-cat-svc > td { background-color: rgba(92, 109, 142, 0.07); }
+    tr.row-reach.row-cat-co > td { background-color: rgba(92, 109, 142, 0.09); }
+    tr.row-prime.row-cat-co > td { background-color: rgba(92, 109, 142, 0.04); }
+    tr.row-reach.row-cat-per > td { background-color: rgba(74, 90, 120, 0.14); }
+    tr.row-prime.row-cat-per > td { background-color: rgba(74, 90, 120, 0.08); }
+    tr.row-reach.row-cat-ev > td { background-color: rgba(140, 110, 85, 0.14); }
+    tr.row-prime.row-cat-ev > td { background-color: rgba(140, 110, 85, 0.08); }
+    tr.row-reach:hover > td, tr.row-prime:hover > td { filter: brightness(0.97); }
     .calendar-table-shell {
       position: relative;
       border-radius: 0.75rem;
@@ -123,24 +126,26 @@
       box-shadow: 4px 0 12px -4px rgba(45, 55, 72, 0.15);
     }
     .table-master th:nth-child(3), .table-master td:nth-child(3) {
-      position: sticky; left: 6.75rem; z-index: 13; min-width: 3.25rem; width: 3.25rem;
+      position: sticky; left: 6.75rem; z-index: 13; min-width: 5.25rem; width: 5.25rem;
+      font-weight: 600; font-size: 0.72rem; white-space: nowrap;
       box-shadow: 4px 0 12px -4px rgba(45, 55, 72, 0.12);
     }
     .table-master thead th:nth-child(1) { z-index: 1030; left: 0; }
     .table-master thead th:nth-child(2) { z-index: 1029; left: 4.25rem; }
     .table-master thead th:nth-child(3) { z-index: 1028; left: 6.75rem; }
-    .table-master td:nth-child(9) {
+    .table-master td:nth-child(11) {
       min-width: 12rem; max-width: 20rem; font-weight: 500; color: var(--bs-gray-800); overflow-wrap: anywhere;
     }
-    .table-master td:nth-child(10), .table-master td:nth-child(11) {
+    .table-master td:nth-child(12), .table-master td:nth-child(13) {
       min-width: 10rem; max-width: 18rem; font-size: 0.78rem; line-height: 1.45; color: var(--bs-secondary);
     }
     .badge-cat-svc { background: var(--mc-nav-start) !important; }
     .badge-cat-co { background: #6b7c99 !important; }
     .badge-cat-per { background: #4a5a78 !important; }
     .badge-cat-ev { background: #8b7355 !important; }
+    .badge-slot-a { background: #4a6fa8 !important; }
+    .badge-slot-b { background: var(--mc-nav-start) !important; }
     footer.site-footer { border-top: 1px solid var(--mc-card-border); background: #fff; }
-    /* Tablet / small laptop: tighter sticky band + readable cells */
     @media (max-width: 991.98px) {
       .table-master { font-size: 0.75rem; }
       .table-master thead th { font-size: 0.6rem; padding: 0.45rem 0.35rem; }
@@ -149,7 +154,6 @@
     @media (max-width: 767.98px) {
       .hero-calendar { padding: 1.25rem 0 1.75rem; }
       .hero-calendar .lead { font-size: 1rem; }
-      /* Align wide block with viewport edges (matches Bootstrap container padding) */
       .calendar-table-shell {
         border-radius: 0.5rem;
         margin-left: calc(-0.5 * var(--bs-gutter-x, 1.5rem));
@@ -157,7 +161,6 @@
         width: calc(100% + var(--bs-gutter-x, 1.5rem));
         max-width: 100vw;
       }
-      /* Card stack: one row per day, no sideways table on phones */
       .table-scroll-inner {
         overflow-x: visible;
         -webkit-overflow-scrolling: auto;
@@ -205,15 +208,17 @@
       }
       .table-master td:nth-child(1)::before { content: "Date"; }
       .table-master td:nth-child(2)::before { content: "Day"; }
-      .table-master td:nth-child(3)::before { content: "Time"; }
-      .table-master td:nth-child(4)::before { content: "Platform"; }
-      .table-master td:nth-child(5)::before { content: "Format"; }
-      .table-master td:nth-child(6)::before { content: "Category"; }
-      .table-master td:nth-child(7)::before { content: "Topic / angle"; }
-      .table-master td:nth-child(8)::before { content: "Service line"; }
-      .table-master td:nth-child(9)::before { content: "Working title"; }
-      .table-master td:nth-child(10)::before { content: "Shot list / assets"; }
-      .table-master td:nth-child(11)::before { content: "Caption direction"; }
+      .table-master td:nth-child(3)::before { content: "Slot"; }
+      .table-master td:nth-child(4)::before { content: "Goal"; }
+      .table-master td:nth-child(5)::before { content: "Time"; }
+      .table-master td:nth-child(6)::before { content: "Platform"; }
+      .table-master td:nth-child(7)::before { content: "Format"; }
+      .table-master td:nth-child(8)::before { content: "Category"; }
+      .table-master td:nth-child(9)::before { content: "Topic / angle"; }
+      .table-master td:nth-child(10)::before { content: "Service line"; }
+      .table-master td:nth-child(11)::before { content: "Working title"; }
+      .table-master td:nth-child(12)::before { content: "Shot list / assets"; }
+      .table-master td:nth-child(13)::before { content: "Caption direction"; }
       .table-master th:nth-child(n),
       .table-master td:nth-child(n) {
         position: static !important;
@@ -242,6 +247,8 @@
       }
       .table-master td::before { content: none !important; display: none !important; }
       .table-master th, .table-master td { position: static !important; left: auto !important; box-shadow: none !important; }
+      tr.row-reach > td { background: #eef2f8 !important; }
+      tr.row-prime > td { background: #f7f8fb !important; }
     }
   </style>
 </head>
@@ -250,8 +257,8 @@
     <div class="container-fluid px-2 px-sm-3 d-flex flex-wrap align-items-center gap-2">
       <span class="navbar-brand mb-0 d-flex align-items-center gap-2 flex-grow-1 flex-shrink-1 min-w-0 py-1">
         <i class="bi bi-calendar3 fs-5 flex-shrink-0"></i>
-        <span class="fs-6 fw-semibold text-truncate d-none d-sm-inline">Monte Carlo · 30-day editor calendar</span>
-        <span class="fs-6 fw-semibold text-truncate d-sm-none">30-day calendar</span>
+        <span class="fs-6 fw-semibold text-truncate d-none d-sm-inline">Monte Carlo · 2× daily editor calendar</span>
+        <span class="fs-6 fw-semibold text-truncate d-sm-none">2× daily calendar</span>
       </span>
       <a class="btn btn-outline-light btn-sm flex-shrink-0 ms-sm-auto" href="Social-Strategy-Deliverable.html"><i class="bi bi-journal-text d-none d-sm-inline me-1"></i><span class="d-sm-none">Strategy</span><span class="d-none d-sm-inline">Strategy doc</span></a>
     </div>
@@ -259,52 +266,60 @@
 
   <header class="hero-calendar no-print">
     <div class="container">
-      <p class="small mb-2 opacity-90"><i class="bi bi-clock me-1"></i>Default times are <strong>tentative</strong> — validate per weekday with Meta “When your followers are online” and <code class="text-dark bg-white bg-opacity-25 px-1 rounded">Timing &amp; Frequency.html</code> (Best Time Slot column).</p>
-      <h1 class="h2 fw-bold mb-2">April 2026 — <span class="text-white-50 d-block d-sm-inline">30 feed posts (1 per day)</span></h1>
-      <p class="lead mb-3 opacity-95">Editor handoff aligned to <a class="text-white text-decoration-underline" href="Social-Strategy-Deliverable.html#pillars">Social-Strategy-Deliverable.html</a> pillars. Labels match <code class="text-dark bg-white bg-opacity-25 px-1 rounded">Summary Metrics.html</code> <strong>Category</strong> + <strong>Topic/Angle</strong> taxonomy.</p>
-      <p class="small mb-0 opacity-90"><strong>Platforms:</strong> Default <strong>FB + IG</strong> mirror; add <strong>TikTok</strong> for vertical Reels when noted. <span class="badge badge-cat-svc">Service-Focused</span> <span class="badge badge-cat-co">Company Branding</span> <span class="badge badge-cat-per">Personal Branding</span> <span class="badge badge-cat-ev">Event Post</span></p>
+      <p class="small mb-2 opacity-90"><i class="bi bi-clock me-1"></i>Timezone: <strong>America/New_York</strong> (ET) · Default slots: <strong>12:30 Reach</strong> · <strong>19:00 Prime</strong> — validate with Meta “When your followers are online” and <code class="text-dark bg-white bg-opacity-25 px-1 rounded">Timing &amp; Frequency.html</code>.</p>
+      <h1 class="h2 fw-bold mb-2">April 2026 — <span class="text-white-50 d-block d-sm-inline">60 feed posts (2 per day)</span></h1>
+      <p class="lead mb-3 opacity-95">Editor handoff aligned to <a class="text-white text-decoration-underline" href="Social-Strategy-Deliverable.html#pillars">Social-Strategy-Deliverable.html</a>. <strong>Category</strong> + <strong>Topic/Angle</strong> match <code class="text-dark bg-white bg-opacity-25 px-1 rounded">Summary Metrics.html</code> exports.</p>
+      <ul class="small opacity-95 mb-2 ps-3">
+        <li><strong>Slot A — Reach (12:30 ET):</strong> Pattern interrupt, saves/comments, shorter Reels when possible — feed discovery and non-follower sampling.</li>
+        <li><strong>Slot B — Prime (19:00 ET):</strong> Deeper demo, proof, or narrative — stronger <strong>consult / audit</strong> CTA where appropriate.</li>
+      </ul>
+      <p class="small mb-2 opacity-90"><strong>Pairing rules:</strong> Different titles per slot; light + deep. <strong>Fridays:</strong> Reach = micro-tip on the week’s theme; Prime = fuller playbook or proof. <strong>Growth extras (not separate rows):</strong> optional Stories; consider boosting top Reach Reels after you have signal.</p>
+      <p class="small mb-0 opacity-90"><strong>Platforms:</strong> Default <strong>FB + IG</strong> mirror; add <strong>TikTok</strong> for vertical Reach + selected Prime Reels. <span class="badge badge-slot-a">A = Reach</span> <span class="badge badge-slot-b">B = Prime</span> <span class="badge badge-cat-svc">Service-Focused</span> <span class="badge badge-cat-co">Company Branding</span> <span class="badge badge-cat-per">Personal Branding</span> <span class="badge badge-cat-ev">Event Post</span></p>
     </div>
   </header>
 
   <div class="container py-4 py-lg-5">
     <section class="card calendar-card shadow-sm mb-4">
-      <div class="card-header fw-semibold py-3"><i class="bi bi-calendar-week me-2 text-secondary"></i>Weekly rhythm (suggested)</div>
+      <div class="card-header fw-semibold py-3"><i class="bi bi-calendar-week me-2 text-secondary"></i>Weekly rhythm — Prime (evening) + Reach (midday)</div>
       <div class="card-body">
         <div class="table-responsive rounded-3 border">
           <table class="table table-sm table-bordered table-hover mb-0 bg-white">
-            <thead class="table-light"><tr><th>Day</th><th>Focus</th><th>Format lean</th></tr></thead>
+            <thead class="table-light"><tr><th>Day</th><th>Prime focus (19:00)</th><th>Prime format</th><th>Reach (12:30) bias</th></tr></thead>
             <tbody class="small text-secondary">
-              <tr><td>Monday</td><td>Product / web craft &amp; UX</td><td>Reel or carousel teardown</td></tr>
-              <tr><td>Tuesday</td><td>SEO &amp; growth education</td><td>Carousel or graphic + long caption</td></tr>
-              <tr><td>Wednesday</td><td>Software / PWA / systems</td><td>Screen-record or diagram slide</td></tr>
-              <tr><td>Thursday</td><td>AI / automation (grounded)</td><td>Talking head + checklist overlay</td></tr>
-              <tr><td>Friday</td><td>Proof, offers, consult CTA</td><td>Case frame, testimonial, FAQ</td></tr>
-              <tr><td>Saturday</td><td>Brand / graphic systems</td><td>Portfolio grid, BTS</td></tr>
-              <tr><td>Sunday</td><td>Thought leadership or lighter culture</td><td>Single image, quote, or short Reel</td></tr>
+              <tr><td>Monday</td><td>Product / web craft &amp; UX</td><td>Reel or carousel teardown</td><td>Hot take, poll, “this or that” on UX</td></tr>
+              <tr><td>Tuesday</td><td>SEO &amp; growth education</td><td>Carousel or graphic + long caption</td><td>15–20s myth-bust or one-question Reel</td></tr>
+              <tr><td>Wednesday</td><td>Software / PWA / systems</td><td>Screen-record or diagram slide</td><td>Relatable spreadsheet or 3-slide poll</td></tr>
+              <tr><td>Thursday</td><td>AI / automation (grounded)</td><td>Talking head + checklist overlay</td><td>Pattern interrupt; comment CTA</td></tr>
+              <tr><td>Friday</td><td>Proof, offers, consult CTA</td><td>Case frame, testimonial, FAQ</td><td>Micro-tip echoing the week’s vertical</td></tr>
+              <tr><td>Saturday</td><td>Brand / graphic systems</td><td>Portfolio grid, BTS</td><td>Teaser, quick myth, save-worthy slide</td></tr>
+              <tr><td>Sunday</td><td>Thought leadership or lighter culture</td><td>Single image, quote, or short Reel</td><td>Chill question, habit, recap tease</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="small text-muted mt-2 mb-0"><strong>Specs:</strong> Reels 9:16 safe zones; burned-in captions; end card with logo + CTA (consult / site). Blur sensitive client UI unless approved.</p>
+        <p class="small text-muted mt-2 mb-0"><strong>Specs:</strong> Reels 9:16 safe zones; burned-in captions; end card with logo + CTA. Reach Reels often <strong>15–25s</strong> when possible. Blur sensitive client UI unless approved.</p>
+        <p class="small text-muted mt-2 mb-0"><strong>Stories (optional):</strong> Polls, link sticker to consult, repost a strong Reach clip — not counted in the 60 feed rows.</p>
       </div>
     </section>
 
     <section class="mb-4" id="schedule">
-      <h2 class="h4 mb-2">April 1–30, 2026 <span class="text-secondary fw-normal fs-6">— master schedule</span></h2>
-      <p class="small text-secondary mb-2">Time column uses the sheet pattern <em>where weekday matches</em>: Mon 9:00 · Tue 10:00 · Wed 10:00 · Thu 16:00 · Fri 9:00 · Sat 17:00 · Sun 9:00 (adjust when MBS disagrees).</p>
-      <p class="d-none d-md-flex d-lg-none align-items-center gap-2 small text-secondary mb-0"><i class="bi bi-arrow-left-right flex-shrink-0 text-mc-accent"></i><span>Swipe sideways; first columns stay pinned.</span></p>
-      <p class="d-md-none small text-secondary mb-0"><i class="bi bi-stack me-1 text-mc-accent"></i>Below: one card per day — scroll the list.</p>
+      <h2 class="h4 mb-2">April 2026 — master schedule <span class="text-secondary fw-normal fs-6">(by date, then time · ET)</span></h2>
+      <p class="small text-secondary mb-2">Sorted: <strong class="text-dark">Reach 12:30</strong> then <strong class="text-dark">Prime 19:00</strong> each day. Swipe columns on tablet; on phone each <em>post</em> is its own card (2 per day).</p>
+      <p class="d-none d-md-flex d-lg-none align-items-center gap-2 small text-secondary mb-0"><i class="bi bi-arrow-left-right flex-shrink-0 text-mc-accent"></i><span>Swipe sideways; Date, Day, and Slot stay pinned.</span></p>
+      <p class="d-md-none small text-secondary mb-0"><i class="bi bi-stack me-1 text-mc-accent"></i>Below: one card per post (two per calendar day).</p>
     </section>
 
     <div class="calendar-table-shell border bg-white mt-2">
       <div class="table-scroll-inner">
       <table class="table table-sm table-bordered table-calendar table-master mb-0 bg-white table-hover">
         <colgroup>
-          <col><col><col><col><col><col><col><col><col><col><col>
+          <col><col><col><col><col><col><col><col><col><col><col><col><col>
         </colgroup>
         <thead>
           <tr>
             <th scope="col">Date</th>
             <th scope="col">Day</th>
+            <th scope="col">Slot</th>
+            <th scope="col">Goal</th>
             <th scope="col" class="col-time">Time</th>
             <th scope="col">Platform</th>
             <th scope="col">Format</th>
@@ -317,43 +332,102 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="row-cat-svc"><td>Apr 1</td><td>Wed</td><td class="col-time">10:00</td><td>FB + IG</td><td>Carousel (5)</td><td>Service-Focused</td><td>Service Solution</td><td>Custom Web</td><td>“5 homepage sections that actually convert (and 2 to delete)”</td><td class="small">Wireframe-style slides; no client logos unless cleared.</td><td class="small">Save for your next redesign. CTA: book a consult.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 2</td><td>Thu</td><td class="col-time">16:00</td><td>FB + IG + TT</td><td>Reel 35s</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“Technical SEO in 30 seconds: crawl, index, rank (plain English)”</td><td class="small">Three animated cards; simple icons; no guaranteed rankings language.</td><td class="small">Comment “AUDIT” if you want a checklist (then route to DM policy).</td></tr>
-          <tr class="row-cat-per"><td>Apr 3</td><td>Fri</td><td class="col-time">9:00</td><td>FB + IG</td><td>Reel 25s</td><td>Personal Branding</td><td>Behind The Scenes</td><td>Company</td><td>“Friday ship day: what we review before any launch”</td><td class="small">Desk B-roll; checklist overlay; team hands only if no releases signed.</td><td class="small">Trust through process. Link in bio.</td></tr>
-          <tr class="row-cat-co"><td>Apr 4</td><td>Sat</td><td class="col-time">17:00</td><td>FB + IG</td><td>Static</td><td>Company Branding</td><td>Facts</td><td>Graphic Design</td><td>“3 signs your brand looks ‘template-made’ on ads”</td><td class="small">Before/after style (generic mock brands).</td><td class="small">Educational hook; soft pitch to brand audit.</td></tr>
-          <tr class="row-cat-co"><td>Apr 5</td><td>Sun</td><td class="col-time">9:00</td><td>FB + IG</td><td>Single + caption</td><td>Company Branding</td><td>Educational</td><td>Landing Page</td><td>“Landing page vs website: when you need a dedicated funnel”</td><td class="small">Split diagram graphic.</td><td class="small">Thought leadership; CTA to strategy call.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 6</td><td>Mon</td><td class="col-time">9:00</td><td>FB + IG</td><td>Carousel (6)</td><td>Service-Focused</td><td>Problem/Solution</td><td>Custom Web</td><td>“Site feels slow? 6 places we look first (not just ‘clear cache’)”</td><td class="small">Mix of metrics placeholders + tool-agnostic tips.</td><td class="small">Build authority; invite performance consult.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 7</td><td>Tue</td><td class="col-time">10:00</td><td>FB + IG + TT</td><td>Reel 30s</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“Local SEO reality check: maps pack vs organic”</td><td class="small">Map mockup; keep claims conservative.</td><td class="small">Offer free resource if you have one; else consult CTA.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 8</td><td>Wed</td><td class="col-time">10:00</td><td>FB + IG</td><td>Reel 40s</td><td>Service-Focused</td><td>Service Solution</td><td>Custom Software</td><td>“When spreadsheets become risk (signals you need a real system)”</td><td class="small">Humorous office B-roll; relatable scenarios.</td><td class="small">Tag a founder who needs this — sparingly.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 9</td><td>Thu</td><td class="col-time">16:00</td><td>FB + IG + TT</td><td>Reel 28s</td><td>Service-Focused</td><td>Problem/Solution</td><td>AI Agent</td><td>“AI support that doesn’t annoy customers: 3 guardrails we ship”</td><td class="small">Simple flowchart animation; human handoff beat.</td><td class="small">Transparency beats hype; book automation consult.</td></tr>
-          <tr class="row-cat-per"><td>Apr 10</td><td>Fri</td><td class="col-time">9:00</td><td>FB + IG</td><td>Reel 22s</td><td>Personal Branding</td><td>Motivational</td><td>Company</td><td>“The real cost isn’t the website — it’s the six months you wait”</td><td class="small">Founder talking head; respectful tone.</td><td class="small">Strong CTA; consult or site link.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 11</td><td>Sat</td><td class="col-time">17:00</td><td>FB + IG</td><td>Carousel (4)</td><td>Service-Focused</td><td>Service Solution</td><td>UI/UX Design</td><td>“Mobile-first isn’t a buzzword — it’s your revenue screen”</td><td class="small">Thumb-zone illustration; UI mocks (fictional).</td><td class="small">Save carousel; follow for part 2.</td></tr>
-          <tr class="row-cat-co"><td>Apr 12</td><td>Sun</td><td class="col-time">9:00</td><td>FB + IG</td><td>Static</td><td>Company Branding</td><td>About Us</td><td>Company</td><td>“Why Monte Carlo leads with process before pixels”</td><td class="small">Team or office stock you’re licensed to use.</td><td class="small">Humanize the brand; CTA: meet the team / call.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 13</td><td>Mon</td><td class="col-time">9:00</td><td>FB + IG + TT</td><td>Reel 32s</td><td>Service-Focused</td><td>Educational</td><td>PWA</td><td>“Installable web apps: who actually benefits on mobile?”</td><td class="small">Phone screen record of skeleton PWA; clarify not every business needs it.</td><td class="small">Invite DMs for fit assessment.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 14</td><td>Tue</td><td class="col-time">10:00</td><td>FB + IG</td><td>Carousel (7)</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“7 questions to ask before you hire an SEO partner”</td><td class="small">Bold type slides; last slide CTA.</td><td class="small">Positions you as honest operators.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 15</td><td>Wed</td><td class="col-time">10:00</td><td>FB + IG</td><td>Reel 35s</td><td>Service-Focused</td><td>Service Solution</td><td>Landing Page</td><td>“One offer, one page, one CTA — walkthrough of a focused funnel”</td><td class="small">Generic landing mock; highlight hero + proof + CTA.</td><td class="small">Pair with consult for funnel mapping.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 16</td><td>Thu</td><td class="col-time">16:00</td><td>FB + IG + TT</td><td>Reel 26s</td><td>Service-Focused</td><td>Service Solution</td><td>AI Agent</td><td>“Lead routing demo: form → qualify → notify (sanitized)”</td><td class="small">Blur all PII; label “sample workflow.”</td><td class="small">Emphasize compliance + human review.</td></tr>
-          <tr class="row-cat-co"><td>Apr 17</td><td>Fri</td><td class="col-time">9:00</td><td>FB + IG</td><td>Carousel (5)</td><td>Company Branding</td><td>Testimony</td><td>Custom Web</td><td>“What clients say after launch (quotes you can actually verify)”</td><td class="small">Use only approved testimonials; logo permissions.</td><td class="small">Social proof Friday; CTA book call.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 18</td><td>Sat</td><td class="col-time">17:00</td><td>FB + IG</td><td>Reel 20s</td><td>Service-Focused</td><td>Behind The Scenes</td><td>Graphic Design</td><td>“From moodboard to component library in 20 seconds (sped up)”</td><td class="small">Time-lapse; show craft, not client secrets.</td><td class="small">Build desire for cohesive identity.</td></tr>
-          <tr class="row-cat-per"><td>Apr 19</td><td>Sun</td><td class="col-time">9:00</td><td>FB + IG</td><td>Single</td><td>Personal Branding</td><td>Credibility</td><td>Company</td><td>“We’re not the cheapest — here’s what you get instead”</td><td class="small">Clean typography poster style.</td><td class="small">Qualify leads; invite serious buyers.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 20</td><td>Mon</td><td class="col-time">9:00</td><td>FB + IG</td><td>Reel 38s</td><td>Service-Focused</td><td>Problem/Solution</td><td>Custom Software</td><td>“Custom build vs Saa dogpile: decision framework in under a minute”</td><td class="small">Split-screen comparison; neutral tone.</td><td class="small">Offer discovery workshop CTA.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 21</td><td>Tue</td><td class="col-time">10:00</td><td>FB + IG + TT</td><td>Reel 33s</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“On-page basics that still move the needle in 2026”</td><td class="small">Checklist overlays; examples generic.</td><td class="small">Comment with your industry for a tailored tip (moderated).</td></tr>
-          <tr class="row-cat-ev"><td>Apr 22</td><td>Wed</td><td class="col-time">10:00</td><td>FB + IG</td><td>Static</td><td>Event Post</td><td>Educational</td><td>Company</td><td>“Earth Day: digital sustainability — bloat costs money and carbon”</td><td class="small">Nature texture + simple stats (cite sources if you add numbers).</td><td class="small">Tie to performance audits + hosting choices.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 23</td><td>Thu</td><td class="col-time">16:00</td><td>FB + IG</td><td>Carousel (6)</td><td>Service-Focused</td><td>Service Solution</td><td>UI/UX Design</td><td>“Accessibility isn’t optional — quick wins that protect you + users”</td><td class="small">Contrast + tap target slides.</td><td class="small">Position ethical, professional delivery.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 24</td><td>Fri</td><td class="col-time">9:00</td><td>FB + IG + TT</td><td>Reel 30s</td><td>Service-Focused</td><td>Service Solution</td><td>PWA</td><td>“Offline-first field teams: when a PWA beats a native app (cost)”</td><td class="small">Illustrative scenario; no false savings claims.</td><td class="small">Invite consult for architecture review.</td></tr>
-          <tr class="row-cat-per"><td>Apr 25</td><td>Sat</td><td class="col-time">17:00</td><td>FB + IG</td><td>Reel 24s</td><td>Personal Branding</td><td>Behind The Scenes</td><td>Company</td><td>“Tools we actually use to keep client projects on schedule”</td><td class="small">Screen snips of generic tools (blur names if needed).</td><td class="small">Relatable ops content.</td></tr>
-          <tr class="row-cat-co"><td>Apr 26</td><td>Sun</td><td class="col-time">9:00</td><td>FB + IG</td><td>Carousel (3)</td><td>Company Branding</td><td>Educational</td><td>Graphic Design</td><td>“Brand system cheat sheet: what to hand off to any designer”</td><td class="small">Logo, type, color, spacing slides.</td><td class="small">Save + share with marketing leads.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 27</td><td>Mon</td><td class="col-time">9:00</td><td>FB + IG</td><td>Reel 36s</td><td>Service-Focused</td><td>Service Solution</td><td>Custom Web</td><td>“Headless vs monolith for SMBs — without the computer science degree”</td><td class="small">Simple analogy graphics.</td><td class="small">CTA: architecture consult if complex.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 28</td><td>Tue</td><td class="col-time">10:00</td><td>FB + IG + TT</td><td>Reel 29s</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“The myth of ‘we’ll SEO it after launch’”</td><td class="small">Stop-motion sticky notes or kinetic text.</td><td class="small">Route to site audit offer.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 29</td><td>Wed</td><td class="col-time">10:00</td><td>FB + IG</td><td>Reel 34s</td><td>Service-Focused</td><td>Problem/Solution</td><td>Custom Software</td><td>“Integrations that fail silently — how we instrument workflows”</td><td class="small">Abstract diagram; no client internals.</td><td class="small">Invite technical discovery call.</td></tr>
-          <tr class="row-cat-svc"><td>Apr 30</td><td>Thu</td><td class="col-time">16:00</td><td>FB + IG</td><td>Carousel (5)</td><td>Service-Focused</td><td>Service Solution</td><td>AI Agent</td><td>“Month-end recap: 5 automation ideas you can steal (with ethics)”</td><td class="small">Numbered slides; disclaim review with legal if needed.</td><td class="small">Strong CTA to May campaign / newsletter if applicable.</td></tr>
+          <tr class="row-reach row-cat-svc"><td>Apr 1</td><td>Wed</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG + TT</td><td>Reel 18s</td><td>Service-Focused</td><td>Educational</td><td>Custom Web</td><td>“How many sections does your homepage actually need — 3, 5, or 8+?”</td><td class="small">Quick face-to-camera or text-on-screen; stack-of-sections visual; end tease: “evening post breaks down what to delete.”</td><td class="small">Comment with a number; no client mocks. #webdesign</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 1</td><td>Wed</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG</td><td>Carousel (5)</td><td>Service-Focused</td><td>Service Solution</td><td>Custom Web</td><td>“5 homepage sections that actually convert (and 2 to delete)”</td><td class="small">Wireframe-style slides; no client logos unless cleared.</td><td class="small">Save for your next redesign. CTA: book a consult.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 2</td><td>Thu</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG</td><td>Reel 16s</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“True or false: Google ranks your site in one day”</td><td class="small">Big T/F cards; punchline: crawl + index takes time; no guaranteed rankings language.</td><td class="small">Comment T or F. Prime post explains crawl → index in plain English.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 2</td><td>Thu</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG + TT</td><td>Reel 35s</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“Technical SEO in 30 seconds: crawl, index, rank (plain English)”</td><td class="small">Three animated cards; simple icons; no guaranteed rankings language.</td><td class="small">Comment “AUDIT” if you want a checklist (then route to DM policy).</td></tr>
+
+          <tr class="row-reach row-cat-per"><td>Apr 3</td><td>Fri</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG + TT</td><td>Reel 15s</td><td>Personal Branding</td><td>Behind The Scenes</td><td>Company</td><td>“Friday ship day: one check we never skip (5 seconds)”</td><td class="small">Desk cut; checklist flash; tease full process at 7PM.</td><td class="small">Guess the check in comments. Link in bio for consult.</td></tr>
+          <tr class="row-prime row-cat-per"><td>Apr 3</td><td>Fri</td><td>B · Prime</td><td>Trust</td><td class="col-time">19:00</td><td>FB + IG</td><td>Reel 25s</td><td>Personal Branding</td><td>Behind The Scenes</td><td>Company</td><td>“Friday ship day: what we review before any launch”</td><td class="small">Desk B-roll; checklist overlay; team hands only if no releases signed.</td><td class="small">Trust through process. Link in bio.</td></tr>
+
+          <tr class="row-reach row-cat-co"><td>Apr 4</td><td>Sat</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG</td><td>Single / text</td><td>Company Branding</td><td>Facts</td><td>Graphic Design</td><td>“Template-made or custom — which screams louder in your market?”</td><td class="small">Split A/B graphic; 8–10s; evening post lists 3 signs.</td><td class="small">Comment A or B. #branding</td></tr>
+          <tr class="row-prime row-cat-co"><td>Apr 4</td><td>Sat</td><td>B · Prime</td><td>Trust</td><td class="col-time">19:00</td><td>FB + IG</td><td>Static</td><td>Company Branding</td><td>Facts</td><td>Graphic Design</td><td>“3 signs your brand looks ‘template-made’ on ads”</td><td class="small">Before/after style (generic mock brands).</td><td class="small">Educational hook; soft pitch to brand audit.</td></tr>
+
+          <tr class="row-reach row-cat-co"><td>Apr 5</td><td>Sun</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG</td><td>Reel 20s</td><td>Company Branding</td><td>Educational</td><td>Landing Page</td><td>“Quick Sunday question: one site or many landing pages for offers?”</td><td class="small">Chill tone; founder or text-only; tease evening explainer.</td><td class="small">Comment “ONE” or “MANY.”</td></tr>
+          <tr class="row-prime row-cat-co"><td>Apr 5</td><td>Sun</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG</td><td>Single + caption</td><td>Company Branding</td><td>Educational</td><td>Landing Page</td><td>“Landing page vs website: when you need a dedicated funnel”</td><td class="small">Split diagram graphic.</td><td class="small">Thought leadership; CTA to strategy call.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 6</td><td>Mon</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG</td><td>Carousel (3)</td><td>Service-Focused</td><td>Problem/Solution</td><td>Custom Web</td><td>“Slow site bingo: how many apply to you? (3 slides)”</td><td class="small">Three relatable pain slides; no fake scores; point to evening deep dive.</td><td class="small">Comment how many checked. Save if helpful.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 6</td><td>Mon</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG</td><td>Carousel (6)</td><td>Service-Focused</td><td>Problem/Solution</td><td>Custom Web</td><td>“Site feels slow? 6 places we look first (not just ‘clear cache’)”</td><td class="small">Mix of metrics placeholders + tool-agnostic tips.</td><td class="small">Build authority; invite performance consult.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 7</td><td>Tue</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG + TT</td><td>Reel 18s</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“Maps pack or organic results — which do you stalk first?”</td><td class="small">Mock phone frame; playful; conservative claims only.</td><td class="small">Team A vs Team B in comments. Prime: reality check post.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 7</td><td>Tue</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG + TT</td><td>Reel 30s</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“Local SEO reality check: maps pack vs organic”</td><td class="small">Map mockup; keep claims conservative.</td><td class="small">Offer free resource if you have one; else consult CTA.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 8</td><td>Wed</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG</td><td>Reel 15s</td><td>Service-Focused</td><td>Service Solution</td><td>Custom Software</td><td>“Stop scroll: how many ‘sources of truth’ does your ops team use?”</td><td class="small">Finger count 1–2–3+; humor; tease evening story.</td><td class="small">Comment 1, 2, or 3+.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 8</td><td>Wed</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG</td><td>Reel 40s</td><td>Service-Focused</td><td>Service Solution</td><td>Custom Software</td><td>“When spreadsheets become risk (signals you need a real system)”</td><td class="small">Humorous office B-roll; relatable scenarios.</td><td class="small">Tag a founder who needs this — sparingly.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 9</td><td>Thu</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG + TT</td><td>Reel 16s</td><td>Service-Focused</td><td>Problem/Solution</td><td>AI Agent</td><td>“Hot take: chatbots fail when _____ (fill in — we answer tonight)”</td><td class="small">Text hook only ok; prime delivers guardrails.</td><td class="small">Comment the blank; moderate DMs.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 9</td><td>Thu</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG + TT</td><td>Reel 28s</td><td>Service-Focused</td><td>Problem/Solution</td><td>AI Agent</td><td>“AI support that doesn’t annoy customers: 3 guardrails we ship”</td><td class="small">Simple flowchart animation; human handoff beat.</td><td class="small">Transparency beats hype; book automation consult.</td></tr>
+
+          <tr class="row-reach row-cat-per"><td>Apr 10</td><td>Fri</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG</td><td>Reel 14s</td><td>Personal Branding</td><td>Motivational</td><td>Company</td><td>“Micro-tip Friday: the real wait cost (one line)”</td><td class="small">Bold text + founder glance; points to evening story.</td><td class="small">Save if it stings. Consult link in bio.</td></tr>
+          <tr class="row-prime row-cat-per"><td>Apr 10</td><td>Fri</td><td>B · Prime</td><td>Trust</td><td class="col-time">19:00</td><td>FB + IG</td><td>Reel 22s</td><td>Personal Branding</td><td>Motivational</td><td>Company</td><td>“The real cost isn’t the website — it’s the six months you wait”</td><td class="small">Founder talking head; respectful tone.</td><td class="small">Strong CTA; consult or site link.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 11</td><td>Sat</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG + TT</td><td>Reel 15s</td><td>Service-Focused</td><td>Service Solution</td><td>UI/UX Design</td><td>“Thumb-zone test: can you reach the CTA on your phone mock?”</td><td class="small">Hand + phone outline; fictional UI; tease carousel.</td><td class="small">Pass or fail in comments.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 11</td><td>Sat</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG</td><td>Carousel (4)</td><td>Service-Focused</td><td>Service Solution</td><td>UI/UX Design</td><td>“Mobile-first isn’t a buzzword — it’s your revenue screen”</td><td class="small">Thumb-zone illustration; UI mocks (fictional).</td><td class="small">Save carousel; follow for part 2.</td></tr>
+
+          <tr class="row-reach row-cat-co"><td>Apr 12</td><td>Sun</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG</td><td>Static</td><td>Company Branding</td><td>About Us</td><td>Company</td><td>“Process before pixels — agree or disagree?”</td><td class="small">Simple graphic; evening expands “why.”</td><td class="small">Agree/disagree in comments.</td></tr>
+          <tr class="row-prime row-cat-co"><td>Apr 12</td><td>Sun</td><td>B · Prime</td><td>Trust</td><td class="col-time">19:00</td><td>FB + IG</td><td>Static</td><td>Company Branding</td><td>About Us</td><td>Company</td><td>“Why Monte Carlo leads with process before pixels”</td><td class="small">Team or office stock you’re licensed to use.</td><td class="small">Humanize the brand; CTA: meet the team / call.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 13</td><td>Mon</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG + TT</td><td>Reel 14s</td><td>Service-Focused</td><td>Educational</td><td>PWA</td><td>“True or false: every business needs an app icon on the home screen”</td><td class="small">T/F punchy; clarify nuance in Prime.</td><td class="small">T or F below.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 13</td><td>Mon</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG + TT</td><td>Reel 32s</td><td>Service-Focused</td><td>Educational</td><td>PWA</td><td>“Installable web apps: who actually benefits on mobile?”</td><td class="small">Phone screen record of skeleton PWA; clarify not every business needs it.</td><td class="small">Invite DMs for fit assessment.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 14</td><td>Tue</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG</td><td>Reel 18s</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“Ever hired SEO before — thumbs up or thumbs down?”</td><td class="small">Prop reaction; empathize; night carousel has questions to ask.</td><td class="small">Up or down in comments.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 14</td><td>Tue</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG</td><td>Carousel (7)</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“7 questions to ask before you hire an SEO partner”</td><td class="small">Bold type slides; last slide CTA.</td><td class="small">Positions you as honest operators.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 15</td><td>Wed</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG</td><td>Carousel (3)</td><td>Service-Focused</td><td>Service Solution</td><td>Landing Page</td><td>“Guess: one offer should have how many primary CTAs?”</td><td class="small">A) 1 B) 3 C) 6 — reveal in stories; prime walks through.</td><td class="small">Comment A/B/C.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 15</td><td>Wed</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG</td><td>Reel 35s</td><td>Service-Focused</td><td>Service Solution</td><td>Landing Page</td><td>“One offer, one page, one CTA — walkthrough of a focused funnel”</td><td class="small">Generic landing mock; highlight hero + proof + CTA.</td><td class="small">Pair with consult for funnel mapping.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 16</td><td>Thu</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG</td><td>Reel 15s</td><td>Service-Focused</td><td>Service Solution</td><td>AI Agent</td><td>“Form fills → chaos inbox — yes or no?”</td><td class="small">Relatable nod; tease sanitized demo.</td><td class="small">Yes/No in comments.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 16</td><td>Thu</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG + TT</td><td>Reel 26s</td><td>Service-Focused</td><td>Service Solution</td><td>AI Agent</td><td>“Lead routing demo: form → qualify → notify (sanitized)”</td><td class="small">Blur all PII; label “sample workflow.”</td><td class="small">Emphasize compliance + human review.</td></tr>
+
+          <tr class="row-reach row-cat-co"><td>Apr 17</td><td>Fri</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG</td><td>Reel 16s</td><td>Company Branding</td><td>Testimony</td><td>Custom Web</td><td>“Friday micro-win: one line from a client you’re allowed to share”</td><td class="small">Blur name if needed; generic praise ok; points to carousel.</td><td class="small">Save if you needed the reminder.</td></tr>
+          <tr class="row-prime row-cat-co"><td>Apr 17</td><td>Fri</td><td>B · Prime</td><td>Trust</td><td class="col-time">19:00</td><td>FB + IG</td><td>Carousel (5)</td><td>Company Branding</td><td>Testimony</td><td>Custom Web</td><td>“What clients say after launch (quotes you can actually verify)”</td><td class="small">Use only approved testimonials; logo permissions.</td><td class="small">Social proof Friday; CTA book call.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 18</td><td>Sat</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG + TT</td><td>Reel 12s</td><td>Service-Focused</td><td>Behind The Scenes</td><td>Graphic Design</td><td>“Moodboard → library: too fast? (sped up tease)”</td><td class="small">Ultra-short B-roll; audio cue “full sped-up tonight.”</td><td class="small">Follow for the build.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 18</td><td>Sat</td><td>B · Prime</td><td>Trust</td><td class="col-time">19:00</td><td>FB + IG</td><td>Reel 20s</td><td>Service-Focused</td><td>Behind The Scenes</td><td>Graphic Design</td><td>“From moodboard to component library in 20 seconds (sped up)”</td><td class="small">Time-lapse; show craft, not client secrets.</td><td class="small">Build desire for cohesive identity.</td></tr>
+
+          <tr class="row-reach row-cat-per"><td>Apr 19</td><td>Sun</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG</td><td>Poll graphic</td><td>Personal Branding</td><td>Credibility</td><td>Company</td><td>“Cheapest quote vs right partner — which hurt you more before?”</td><td class="small">Two-column emotional hook; evening qualifies buyers.</td><td class="small">Comment 1 or 2 (moderate).</td></tr>
+          <tr class="row-prime row-cat-per"><td>Apr 19</td><td>Sun</td><td>B · Prime</td><td>Trust</td><td class="col-time">19:00</td><td>FB + IG</td><td>Single</td><td>Personal Branding</td><td>Credibility</td><td>Company</td><td>“We’re not the cheapest — here’s what you get instead”</td><td class="small">Clean typography poster style.</td><td class="small">Qualify leads; invite serious buyers.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 20</td><td>Mon</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG</td><td>Reel 17s</td><td>Service-Focused</td><td>Problem/Solution</td><td>Custom Software</td><td>“Custom build vs ‘we’ll just add another SaaS’ — where are you today?”</td><td class="small">Two-way sign graphic; neutral; tease framework reel.</td><td class="small">Team Custom vs Team Stack in comments.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 20</td><td>Mon</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG</td><td>Reel 38s</td><td>Service-Focused</td><td>Problem/Solution</td><td>Custom Software</td><td>“Custom build vs SaaS dogpile: decision framework in under a minute”</td><td class="small">Split-screen comparison; neutral tone.</td><td class="small">Offer discovery workshop CTA.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 21</td><td>Tue</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG + TT</td><td>Reel 15s</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“SEO after launch — myth or strategy?”</td><td class="small">Big text; wink to tomorrow myth post too — keep separate hooks.</td><td class="small">Myth vs strategy in comments.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 21</td><td>Tue</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG + TT</td><td>Reel 33s</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“On-page basics that still move the needle in 2026”</td><td class="small">Checklist overlays; examples generic.</td><td class="small">Comment with your industry for a tailored tip (moderated).</td></tr>
+
+          <tr class="row-reach row-cat-ev"><td>Apr 22</td><td>Wed</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG</td><td>Reel 16s</td><td>Event Post</td><td>Educational</td><td>Company</td><td>“Earth Day: one lazy fact — heavy websites waste ____”</td><td class="small">Fill energy/money; cite if you add numbers in caption.</td><td class="small">Guess the blank; evening static has fuller frame.</td></tr>
+          <tr class="row-prime row-cat-ev"><td>Apr 22</td><td>Wed</td><td>B · Prime</td><td>Trust</td><td class="col-time">19:00</td><td>FB + IG</td><td>Static</td><td>Event Post</td><td>Educational</td><td>Company</td><td>“Earth Day: digital sustainability — bloat costs money and carbon”</td><td class="small">Nature texture + simple stats (cite sources if you add numbers).</td><td class="small">Tie to performance audits + hosting choices.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 23</td><td>Thu</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG</td><td>Reel 14s</td><td>Service-Focused</td><td>Service Solution</td><td>UI/UX Design</td><td>“Tap target fail — have you fat-fingered the wrong button?”</td><td class="small">Relatable wince; evening = accessibility wins.</td><td class="small">Hands up in comments.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 23</td><td>Thu</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG</td><td>Carousel (6)</td><td>Service-Focused</td><td>Service Solution</td><td>UI/UX Design</td><td>“Accessibility isn’t optional — quick wins that protect you + users”</td><td class="small">Contrast + tap target slides.</td><td class="small">Position ethical, professional delivery.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 24</td><td>Fri</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG + TT</td><td>Reel 15s</td><td>Service-Focused</td><td>Service Solution</td><td>PWA</td><td>“Offline mode: must-have or nice-to-have for your team?”</td><td class="small">Field tech tease; no false stats.</td><td class="small">Must / Nice in comments.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 24</td><td>Fri</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG + TT</td><td>Reel 30s</td><td>Service-Focused</td><td>Service Solution</td><td>PWA</td><td>“Offline-first field teams: when a PWA beats a native app (cost)”</td><td class="small">Illustrative scenario; no false savings claims.</td><td class="small">Invite consult for architecture review.</td></tr>
+
+          <tr class="row-reach row-cat-per"><td>Apr 25</td><td>Sat</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG + TT</td><td>Reel 14s</td><td>Personal Branding</td><td>Behind The Scenes</td><td>Company</td><td>“Tools we use — guess our #1 rule before the list tonight”</td><td class="small">Mystery hook; blur logos in evening.</td><td class="small">Comment guesses.</td></tr>
+          <tr class="row-prime row-cat-per"><td>Apr 25</td><td>Sat</td><td>B · Prime</td><td>Trust</td><td class="col-time">19:00</td><td>FB + IG</td><td>Reel 24s</td><td>Personal Branding</td><td>Behind The Scenes</td><td>Company</td><td>“Tools we actually use to keep client projects on schedule”</td><td class="small">Screen snips of generic tools (blur names if needed).</td><td class="small">Relatable ops content.</td></tr>
+
+          <tr class="row-reach row-cat-co"><td>Apr 26</td><td>Sun</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG</td><td>Single</td><td>Company Branding</td><td>Educational</td><td>Graphic Design</td><td>“Without a brand sheet, designers ghost you — agree?”</td><td class="small">Bold quote card; evening delivers cheat sheet.</td><td class="small">Agree / hard disagree.</td></tr>
+          <tr class="row-prime row-cat-co"><td>Apr 26</td><td>Sun</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG</td><td>Carousel (3)</td><td>Company Branding</td><td>Educational</td><td>Graphic Design</td><td>“Brand system cheat sheet: what to hand off to any designer”</td><td class="small">Logo, type, color, spacing slides.</td><td class="small">Save + share with marketing leads.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 27</td><td>Mon</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG</td><td>Reel 16s</td><td>Service-Focused</td><td>Service Solution</td><td>Custom Web</td><td>“Headless sounds scary — thumbs up if you pretended to know it?”</td><td class="small">Humorous confession beat; night demystifies.</td><td class="small">GIF / emoji reaction ok.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 27</td><td>Mon</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG</td><td>Reel 36s</td><td>Service-Focused</td><td>Service Solution</td><td>Custom Web</td><td>“Headless vs monolith for SMBs — without the computer science degree”</td><td class="small">Simple analogy graphics.</td><td class="small">CTA: architecture consult if complex.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 28</td><td>Tue</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG + TT</td><td>Reel 14s</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“We’ll SEO it after launch — last word you want to hear?”</td><td class="small">Facepalm beat; text safe; points to myth reel.</td><td class="small">Drop a “yikes” if you’ve heard it.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 28</td><td>Tue</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG + TT</td><td>Reel 29s</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“The myth of ‘we’ll SEO it after launch’”</td><td class="small">Stop-motion sticky notes or kinetic text.</td><td class="small">Route to site audit offer.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 29</td><td>Wed</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG</td><td>Reel 16s</td><td>Service-Focused</td><td>Problem/Solution</td><td>Custom Software</td><td>“Silent failure: integrations that break without an alert — ever?”</td><td class="small">Nod along B-roll; evening explains instrumentation.</td><td class="small">“Been there” in comments.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 29</td><td>Wed</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG</td><td>Reel 34s</td><td>Service-Focused</td><td>Problem/Solution</td><td>Custom Software</td><td>“Integrations that fail silently — how we instrument workflows”</td><td class="small">Abstract diagram; no client internals.</td><td class="small">Invite technical discovery call.</td></tr>
+
+          <tr class="row-reach row-cat-svc"><td>Apr 30</td><td>Thu</td><td>A · Reach</td><td>Reach</td><td class="col-time">12:30</td><td>FB + IG + TT</td><td>Reel 15s</td><td>Service-Focused</td><td>Service Solution</td><td>AI Agent</td><td>“Automation idea you’d steal vs one you’d never ship — pick”</td><td class="small">Two-card split; ethics tease; night is recap carousel.</td><td class="small">Steal / never — comment.</td></tr>
+          <tr class="row-prime row-cat-svc"><td>Apr 30</td><td>Thu</td><td>B · Prime</td><td>Leads</td><td class="col-time">19:00</td><td>FB + IG</td><td>Carousel (5)</td><td>Service-Focused</td><td>Service Solution</td><td>AI Agent</td><td>“Month-end recap: 5 automation ideas you can steal (with ethics)”</td><td class="small">Numbered slides; disclaim review with legal if needed.</td><td class="small">Strong CTA to May campaign / newsletter if applicable.</td></tr>
         </tbody>
       </table>
       </div>
     </div>
 
     <footer class="site-footer text-muted small py-4 px-3 text-center rounded-3 mt-3">
-      <p class="mb-0"><i class="bi bi-calendar-check me-1"></i>Monte Carlo Technologies · April 2026 · 30 posts · <a href="Social-Strategy-Deliverable.html">Strategy framework</a></p>
+      <p class="mb-0"><i class="bi bi-calendar-check me-1"></i>Monte Carlo Technologies · April 2026 · 60 feed posts · Slot A = Reach 12:30 ET · Slot B = Prime 19:00 ET · <a href="Social-Strategy-Deliverable.html">Strategy framework</a></p>
     </footer>
   </div>
 
