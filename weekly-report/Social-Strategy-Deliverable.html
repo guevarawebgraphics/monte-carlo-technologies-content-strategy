@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monte Carlo Technologies — Social Media Strategy &amp; Content Framework</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --mc-nav-start: #5c6d8e;
+      --mc-nav-end: #8093b3;
+      --mc-hero-end: #4a5a78;
+      --mc-surface: #f4f6fb;
+      --mc-card-border: rgba(92, 109, 142, 0.18);
+    }
+    html { overflow-x: hidden; }
+    body {
+      font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+      scroll-padding-top: 80px;
+      background: linear-gradient(180deg, var(--bs-gray-100) 0%, var(--mc-surface) 420px, var(--bs-gray-100) 100%);
+      overflow-x: hidden;
+    }
+    h1, h2, h3, .display-6 { font-family: "Source Serif 4", Georgia, serif; letter-spacing: -0.02em; }
+    .section-anchor { scroll-margin-top: 80px; }
+    .toc-sticky { position: sticky; top: 88px; }
+    .text-mc-accent { color: var(--mc-nav-start) !important; }
+    .navbar-mc {
+      background: linear-gradient(120deg, var(--mc-nav-start), var(--mc-nav-end));
+      box-shadow: 0 4px 24px rgba(92, 109, 142, 0.28);
+    }
+    .navbar-mc .nav-link { font-weight: 500; }
+    .navbar-mc .nav-link:hover { opacity: 0.92; }
+    .hero-mc {
+      position: relative;
+      margin-top: 56px;
+      padding: 3rem 0 3.5rem;
+      background: linear-gradient(135deg, var(--mc-nav-start) 0%, var(--mc-hero-end) 55%, #3d4a63 100%);
+      color: #fff;
+      overflow: hidden;
+    }
+    .hero-mc::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+      background-size: 18px 18px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .hero-mc .container { position: relative; z-index: 1; }
+    .strategy-card {
+      border: 1px solid var(--mc-card-border) !important;
+      border-radius: 0.75rem;
+      overflow: hidden;
+    }
+    .strategy-card .card-header {
+      background: linear-gradient(180deg, #fff 0%, var(--bs-gray-100) 100%);
+      border-bottom: 1px solid var(--mc-card-border);
+    }
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2rem;
+      height: 2rem;
+      padding: 0 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, var(--mc-nav-start), var(--mc-nav-end));
+      border-radius: 0.5rem;
+      font-family: "Plus Jakarta Sans", sans-serif;
+    }
+    .table-responsive {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+    }
+    .table-mc {
+      --bs-table-border-color: rgba(92, 109, 142, 0.2);
+    }
+    .table-mc thead th {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 600;
+      color: var(--bs-secondary);
+      background: var(--bs-gray-100);
+    }
+    .pillar-card {
+      border: 1px solid var(--mc-card-border);
+      border-radius: 0.75rem;
+      overflow: hidden;
+      transition: box-shadow 0.2s ease;
+    }
+    .pillar-card:hover { box-shadow: 0 0.75rem 2rem rgba(92, 109, 142, 0.12) !important; }
+    .pillar-card .card-header {
+      border-bottom: none;
+      padding: 0.875rem 1.25rem;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-weight: 600;
+      background: linear-gradient(120deg, var(--mc-nav-start), var(--mc-nav-end));
+      color: #fff;
+    }
+    .accordion-button:not(.collapsed) {
+      background-color: rgba(92, 109, 142, 0.1);
+      color: var(--mc-nav-start);
+      box-shadow: none;
+    }
+    .accordion-button:focus { box-shadow: 0 0 0 0.2rem rgba(92, 109, 142, 0.25); }
+    footer.site-footer {
+      border-top: 1px solid var(--mc-card-border);
+      background: #fff;
+    }
+    @media (max-width: 991.98px) {
+      .hero-mc { padding: 2rem 0 2.5rem; }
+      .hero-mc .display-6 { font-size: clamp(1.35rem, 4.2vw, 2.25rem); }
+      .navbar-mc .navbar-brand {
+        max-width: min(72vw, 16rem);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .strategy-card .card-header {
+        flex-wrap: wrap;
+        gap: 0.5rem !important;
+      }
+      .table-mc td,
+      .table-mc th { font-size: 0.8125rem; }
+      .table-mc td.ps-4,
+      .table-mc th.ps-4 { padding-left: 0.75rem !important; }
+      .table-mc td.pe-4,
+      .table-mc th.pe-4 { padding-right: 0.75rem !important; }
+    }
+    @media (max-width: 575.98px) {
+      .card-body.p-4 { padding: 1rem !important; }
+      .card-header.px-4 { padding-left: 1rem !important; padding-right: 1rem !important; }
+    }
+    @media print {
+      .navbar, .toc-sticky, .btn-toc-mobile { display: none !important; }
+      .hero-mc { margin-top: 0; padding: 1.5rem 0; }
+      .section-anchor { scroll-margin-top: 0; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-mc fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-semibold" href="#"><i class="bi bi-bezier2 me-2"></i>Monte Carlo Technologies</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMain">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="#strategy">Social strategy</a></li>
+          <li class="nav-item"><a class="nav-link" href="#psychology">Audience psychology</a></li>
+          <li class="nav-item"><a class="nav-link" href="#authority">Authority positioning</a></li>
+          <li class="nav-item"><a class="nav-link" href="#pillars">Content pillars</a></li>
+          <li class="nav-item"><a class="nav-link" href="Content-Calendar-30-Day-Editors.html">30-day calendar</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero-mc">
+    <div class="container">
+      <p class="small mb-2 opacity-90"><i class="bi bi-file-earmark-text me-1"></i>Internal deliverable · Synthesized from <code>project-scope</code> &amp; weekly-report exports</p>
+      <h1 class="display-6 fw-bold mb-3">Monte Carlo Technologies — Social Media Strategy &amp; Content Framework</h1>
+      <p class="lead mb-0 col-lg-10 opacity-95">Positioning, U.S./English SMB audience psychology, founder-led authority, and six service-aligned pillars — with a linked <a class="text-white text-decoration-underline fw-semibold" href="Content-Calendar-30-Day-Editors.html">30-day editor calendar</a>.</p>
+    </div>
+  </header>
+
+  <div class="container py-4 py-lg-5">
+    <button class="btn btn-outline-secondary btn-sm d-lg-none mb-3 btn-toc-mobile" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas">
+      <i class="bi bi-list-ul me-1"></i>Contents
+    </button>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+      <div class="offcanvas-header border-bottom">
+        <h2 class="offcanvas-title h5 mb-0" id="tocOffcanvasLabel">On this page</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body p-0">
+        <div class="list-group list-group-flush">
+          <a class="list-group-item list-group-item-action py-3" href="#strategy" data-bs-dismiss="offcanvas"><span class="text-mc-accent fw-semibold me-2">1.</span>Full social media strategy</a>
+          <a class="list-group-item list-group-item-action py-3" href="#psychology" data-bs-dismiss="offcanvas"><span class="text-mc-accent fw-semibold me-2">2.</span>Audience psychology</a>
+          <a class="list-group-item list-group-item-action py-3" href="#authority" data-bs-dismiss="offcanvas"><span class="text-mc-accent fw-semibold me-2">3.</span>Authority positioning</a>
+          <a class="list-group-item list-group-item-action py-3" href="#pillars" data-bs-dismiss="offcanvas"><span class="text-mc-accent fw-semibold me-2">4.</span>Content pillars</a>
+        </div>
+        <div class="p-3 small text-muted border-top bg-light">
+          <p class="mb-2"><strong class="text-dark">Website:</strong> <a href="https://montecarlowebgraphics.com" target="_blank" rel="noopener">montecarlowebgraphics.com</a></p>
+          <p class="mb-0">Paste Meta Business Suite demographics into <code>Audience Insights.html</code> when available. Content <strong>Category</strong> and <strong>Topic/Angle</strong> labels align with <code>Summary Metrics.html</code> exports.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 g-xl-5">
+      <aside class="col-lg-3 d-none d-lg-block">
+        <div class="card toc-sticky shadow-sm border-0" style="border: 1px solid var(--mc-card-border) !important;">
+          <div class="card-header bg-white fw-semibold py-3 border-bottom"><i class="bi bi-bookmarks me-2 text-secondary"></i>On this page</div>
+          <div class="list-group list-group-flush small">
+            <a class="list-group-item list-group-item-action py-2" href="#strategy">1. Full social media strategy</a>
+            <a class="list-group-item list-group-item-action py-2" href="#psychology">2. Audience psychology</a>
+            <a class="list-group-item list-group-item-action py-2" href="#authority">3. Authority positioning</a>
+            <a class="list-group-item list-group-item-action py-2" href="#pillars">4. Content pillars</a>
+            <a class="list-group-item list-group-item-action py-2" href="Content-Calendar-30-Day-Editors.html"><i class="bi bi-calendar3 me-1"></i>30-day editor calendar</a>
+          </div>
+          <div class="card-body small text-muted border-top bg-light">
+            <p class="mb-2"><strong class="text-dark">Website:</strong> <a href="https://montecarlowebgraphics.com" target="_blank" rel="noopener">montecarlowebgraphics.com</a></p>
+            <p class="mb-0">Demographics in <code>Audience Insights.html</code> — update from Meta when possible.</p>
+          </div>
+        </div>
+      </aside>
+
+      <main class="col-lg-9">
+        <section id="strategy" class="section-anchor strategy-card card shadow-sm mb-4">
+          <div class="card-header py-3 px-4 d-flex align-items-center gap-3">
+            <span class="section-badge">1</span>
+            <h2 class="h4 mb-0">Full social media strategy</h2>
+          </div>
+          <div class="card-body p-4 p-md-5">
+            <h3 class="h5 mt-0 text-primary-emphasis fw-semibold">Executive snapshot</h3>
+            <p class="text-secondary">Monte Carlo Technologies is a <strong class="text-dark">digital solutions</strong> partner: custom websites, SEO, marketing, and <strong class="text-dark">business automation</strong> (including AI agents). Social’s job is <strong class="text-dark">discovery</strong> (portfolio + proof), <strong class="text-dark">trust</strong> (process, transparency, founder voice), and <strong class="text-dark">pipeline</strong> (discovery calls, audits, project inquiries) for U.S./English-speaking SMBs that compare agencies heavily before they buy.</p>
+
+            <h3 class="h5 mt-4 text-primary-emphasis fw-semibold">Brand positioning</h3>
+            <p class="text-secondary"><strong class="text-dark">One-liner:</strong> High-performing websites, measurable SEO, and automation — built for SMBs that want fewer vendors and clearer outcomes.</p>
+            <p class="text-secondary"><strong class="text-dark">Onlyness (vs alternatives):</strong></p>
+            <ul class="text-secondary">
+              <li><strong class="text-dark">Vs template / DIY:</strong> Custom craft, performance, and integration — not “another theme.”</li>
+              <li><strong class="text-dark">Vs single-service shops:</strong> Design, build, growth, and automation under one coordinated team.</li>
+              <li><strong class="text-dark">Vs enterprise consultancies:</strong> Speed, accessibility, and pricing suited to growing SMBs — without corporate bloat.</li>
+            </ul>
+            <p class="mb-0 text-secondary"><strong class="text-dark">Voice &amp; tone:</strong> Clear, confident, ROI-minded; explain technical topics in plain English; show work and process.</p>
+
+            <h3 class="h5 mt-4 text-primary-emphasis fw-semibold">Platforms and roles</h3>
+            <div class="table-responsive rounded-3 border shadow-sm">
+              <table class="table table-mc table-hover align-middle mb-0 bg-white">
+                <thead>
+                  <tr>
+                    <th class="ps-4">Platform</th>
+                    <th>Role</th>
+                    <th class="pe-4">Content emphasis</th>
+                  </tr>
+                </thead>
+                <tbody class="text-secondary small">
+                  <tr>
+                    <td class="ps-4"><strong class="text-dark">Instagram</strong></td>
+                    <td>Portfolio, Reels, culture, visual proof</td>
+                    <td class="pe-4">Hooks, carousels, BTS, design/dev clips; link in bio / DM for consult</td>
+                  </tr>
+                  <tr>
+                    <td class="ps-4"><strong class="text-dark">Facebook</strong></td>
+                    <td>Community + retargeting audience</td>
+                    <td class="pe-4">Mirror IG where efficient; longer captions for educational threads</td>
+                  </tr>
+                  <tr>
+                    <td class="ps-4"><strong class="text-dark">LinkedIn</strong></td>
+                    <td>B2B credibility &amp; founder POV</td>
+                    <td class="pe-4">Case snapshots, automation/SEO insights, hiring/partnerships</td>
+                  </tr>
+                  <tr>
+                    <td class="ps-4"><strong class="text-dark">YouTube</strong></td>
+                    <td>Consideration &amp; tutorials</td>
+                    <td class="pe-4">Long-form breakdowns: SEO audits, site replatforms, AI workflow demos</td>
+                  </tr>
+                  <tr>
+                    <td class="ps-4"><strong class="text-dark">TikTok</strong> <span class="text-muted">(optional)</span></td>
+                    <td>Top-of-funnel attention</td>
+                    <td class="pe-4">Short “agency POV” + myth-busting; cross-post strongest Reels</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="h5 mt-4 text-primary-emphasis fw-semibold">Audience targeting (organic + paid)</h3>
+            <ul class="text-secondary">
+              <li><strong class="text-dark">Geography:</strong> Primarily U.S./Canada English-speaking markets; global English acceptable for remote positioning.</li>
+              <li><strong class="text-dark">Segments:</strong> Founders, marketing managers, ops/sales leaders at SMBs (often 1–100 employees); professional services, local services, light e‑commerce, tech startups.</li>
+              <li><strong class="text-dark">Intent stacks:</strong> Website redesign, SEO agency, custom software, landing page, AI automation, “WordPress vs custom,” etc.</li>
+              <li><strong class="text-dark">Creative split:</strong> Rotate <strong class="text-dark">service education</strong> vs <strong class="text-dark">proof/credibility</strong> vs <strong class="text-dark">personal brand</strong> — matching your export <strong>Category</strong> taxonomy.</li>
+            </ul>
+
+            <h3 class="h5 mt-4 text-primary-emphasis fw-semibold">Content taxonomy (align exports)</h3>
+            <p class="text-secondary small mb-2">Use these labels consistently in scheduling tools and reports (see <code>Summary Metrics.html</code>):</p>
+            <ul class="text-secondary small">
+              <li><strong class="text-dark">Category:</strong> Company Branding · Service-Focused · Personal Branding · Event Post</li>
+              <li><strong class="text-dark">Topic/Angle (examples):</strong> Service Solution · Educational · Problem/Solution · About Us · Behind The Scenes · Facts · Testimony · Motivational — plus campaign/event angles as needed.</li>
+            </ul>
+
+            <h3 class="h5 mt-4 text-primary-emphasis fw-semibold">Funnel and monetization</h3>
+            <ol class="text-secondary">
+              <li><strong class="text-dark">Awareness:</strong> Reels, carousels, hot takes, SEO/UX micro-lessons.</li>
+              <li><strong class="text-dark">Consideration:</strong> Case patterns, process explainers, comparisons (custom vs template, SEO timelines).</li>
+              <li><strong class="text-dark">Conversion:</strong> <strong class="text-dark">Discovery call / consultation / audit request</strong> — align CTA wording with live site offers.</li>
+              <li><strong class="text-dark">Offer stack:</strong> Projects (web, landing, branding), retainers (SEO, growth), automation/AI builds — frame each post to one primary next step.</li>
+            </ol>
+
+            <h3 class="h5 mt-4 text-primary-emphasis fw-semibold">Growth goals — edit to your targets</h3>
+            <p class="text-muted small">Replace placeholders with goals from leadership or finance.</p>
+            <div class="table-responsive rounded-3 border">
+              <table class="table table-sm table-striped table-hover mb-0">
+                <thead class="table-light">
+                  <tr><th>KPI</th><th>Example target (placeholder)</th><th>Notes</th></tr>
+                </thead>
+                <tbody class="small">
+                  <tr><td>Qualified leads / month</td><td>__</td><td>Source: organic vs paid vs referral</td></tr>
+                  <tr><td>Discovery calls booked</td><td>__</td><td>Calendar or CRM stage</td></tr>
+                  <tr><td>Proposal value sent</td><td>__$</td><td>Pipeline hygiene</td></tr>
+                  <tr><td>Engagement quality</td><td>__ saves / __ link clicks / week</td><td>Better than vanity likes for B2B</td></tr>
+                  <tr><td>Audience growth</td><td>__</td><td>Track per platform; prioritize ICP fit</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 class="h5 mt-4 text-primary-emphasis fw-semibold">What weekly metrics imply — actions</h3>
+            <p class="text-secondary">Exports show <strong class="text-dark">many posts with very low reach and occasional zero engagement</strong>, alongside <strong class="text-dark">stronger performance on select Reels</strong> and topic mixes (e.g. Service Solution, Educational, Personal Branding). Typical implications:</p>
+            <ul class="text-secondary mb-0">
+              <li><strong class="text-dark">Distribution:</strong> Put budget behind best hooks; repurpose winning Reels across platforms.</li>
+              <li><strong class="text-dark">Creative:</strong> Batch short-form with clear hooks; A/B first 2 seconds; add on-screen text for sound-off.</li>
+              <li><strong class="text-dark">Timing:</strong> Validate posting windows against Meta “When your followers are online” and your <code>Timing &amp; Frequency.html</code> <em>Best Time Slot</em> rows (tentative).</li>
+              <li><strong class="text-dark">Offer clarity:</strong> Weak CTAs correlate with scroll-past; pair educational posts with one explicit next step.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="psychology" class="section-anchor strategy-card card shadow-sm mb-4">
+          <div class="card-header py-3 px-4 d-flex align-items-center gap-3">
+            <span class="section-badge">2</span>
+            <h2 class="h4 mb-0">Audience psychology breakdown</h2>
+          </div>
+          <div class="card-body p-4 p-md-5">
+            <p class="text-secondary">Grounded in SMB buyers comparing digital partners: time-poor, skeptical after bad vendor experiences, and hungry for <em>proof</em> before a big spend.</p>
+
+            <div class="accordion" id="psychAccordion">
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#psychFrustrations" aria-expanded="true">Frustrations</button>
+                </h3>
+                <div id="psychFrustrations" class="accordion-collapse collapse show" data-bs-parent="#psychAccordion">
+                  <div class="accordion-body">
+                    <ul class="mb-0 text-secondary small">
+                      <li>Fragmented vendors (designer + dev + SEO + freelancer) with no single owner of outcomes.</li>
+                      <li>Sites that look fine but don’t rank, load slowly, or fail on mobile.</li>
+                      <li>Opaque timelines, surprise scope creep, or invoices that don’t map to deliverables.</li>
+                      <li>Past SEO/marketing disappointments — “we paid for months and saw nothing.”</li>
+                      <li>Manual workflows and tool sprawl; curiosity about AI but fear of hype.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#psychDesires">Desires</button>
+                </h3>
+                <div id="psychDesires" class="accordion-collapse collapse" data-bs-parent="#psychAccordion">
+                  <div class="accordion-body">
+                    <ul class="mb-0 text-secondary small">
+                      <li><strong class="text-dark">Credibility:</strong> A site and social presence that matches how good they are in real life.</li>
+                      <li><strong class="text-dark">Predictability:</strong> Clear phases, milestones, and reporting — especially for SEO and builds.</li>
+                      <li><strong class="text-dark">Leverage:</strong> Automation and systems that save hours without hiring another full-time role.</li>
+                      <li><strong class="text-dark">One partner:</strong> Fewer meetings, fewer handoffs — design, build, and growth aligned.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#psychFears">Fears</button>
+                </h3>
+                <div id="psychFears" class="accordion-collapse collapse" data-bs-parent="#psychAccordion">
+                  <div class="accordion-body">
+                    <ul class="mb-0 text-secondary small">
+                      <li>Choosing the wrong agency and losing months of runway.</li>
+                      <li>Overpaying for a pretty site that doesn’t convert.</li>
+                      <li>Automation/AI that breaks workflows or alienates customers.</li>
+                      <li>Being sold a roadmap they can’t maintain internally.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#psychHabits">Discovery habits</button>
+                </h3>
+                <div id="psychHabits" class="accordion-collapse collapse" data-bs-parent="#psychAccordion">
+                  <div class="accordion-body">
+                    <ul class="mb-0 text-secondary small">
+                      <li>Google search, Clutch-style directories, LinkedIn, and peer referrals.</li>
+                      <li>Portfolio skim on IG/website within seconds — visual quality is a filter.</li>
+                      <li>“DM for details” or form fills only after trust markers (case, process, reviews).</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="h5 mt-4 text-primary-emphasis fw-semibold">Scroll-stopping angles (examples)</h3>
+            <div class="table-responsive rounded-3 border shadow-sm">
+              <table class="table table-mc table-hover mb-0 bg-white small">
+                <thead><tr><th class="ps-4">Pain</th><th class="pe-4">Hook patterns</th></tr></thead>
+                <tbody class="text-secondary">
+                  <tr><td class="ps-4">Vendor chaos</td><td class="pe-4">“How many agencies does it take to ship one website?” · “Signs you’ve outgrown templates.”</td></tr>
+                  <tr><td class="ps-4">SEO skepticism</td><td class="pe-4">“3 things I’d check before signing a 12-month SEO contract.” · “Why rankings stall after launch.”</td></tr>
+                  <tr><td class="ps-4">Automation fear</td><td class="pe-4">“AI that reduces tickets vs AI that annoys customers — checklist.”</td></tr>
+                  <tr><td class="ps-4">UX &amp; conversion</td><td class="pe-4">“Homepage sections that actually move leads (and two that don’t).”</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="authority" class="section-anchor strategy-card card shadow-sm mb-4">
+          <div class="card-header py-3 px-4 d-flex align-items-center gap-3">
+            <span class="section-badge">3</span>
+            <h2 class="h4 mb-0">Authority positioning (founder-led)</h2>
+          </div>
+          <div class="card-body p-4 p-md-5">
+            <p class="text-secondary">Use a <strong class="text-dark">human face</strong> for Monte Carlo Technologies — SMB buyers hire people, not homepages. Replace bracketed placeholders with real bios, photos, and proof.</p>
+
+            <div class="alert alert-info border-0 shadow-sm" style="background: rgba(13, 110, 253, 0.08);">
+              <i class="bi bi-info-circle me-2"></i><strong>Placeholders:</strong> [Founder Name] · [Title] · [Why you started Monte Carlo + first marquee client or milestone]
+            </div>
+
+            <h3 class="h5 mt-4 text-primary-emphasis fw-semibold">Category design</h3>
+            <p class="text-secondary"><strong class="text-dark">Category:</strong> “The integrated digital partner for SMBs — design, build, SEO, and automation without the enterprise price tag.”</p>
+            <p class="text-secondary"><strong class="text-dark">Not:</strong> Generic “we do everything” with no proof — own <em>clarity + execution + measurable growth</em>.</p>
+
+            <h3 class="h5 mt-4 text-primary-emphasis fw-semibold">Positioning statement (internal)</h3>
+            <p class="fst-italic mb-0 text-secondary border-start border-4 ps-3 py-2" style="border-color: var(--mc-nav-start) !important;">[Founder Name] leads Monte Carlo Technologies in helping growth-minded SMBs ship <strong class="text-dark">credible, fast, measurable digital systems</strong> — websites people trust, SEO that compounds, and automation that saves real hours — with transparent process and craft you can see in the portfolio.</p>
+
+            <h3 class="h5 mt-4 text-primary-emphasis fw-semibold">Authority pillars (personal brand)</h3>
+            <ol class="text-secondary small">
+              <li><strong class="text-dark">Operator clarity:</strong> Explain trade-offs (scope, timeline, stack) without condescension.</li>
+              <li><strong class="text-dark">Show the work:</strong> Short screen captures, before/after metrics (with client permission), design breakdowns.</li>
+              <li><strong class="text-dark">Proof stack:</strong> Testimonials, logos, case patterns, “how we rescued a stalled project.”</li>
+              <li><strong class="text-dark">Community &amp; hiring:</strong> Internships, culture, partnerships — signal stability.</li>
+              <li><strong class="text-dark">Support narrative:</strong> What happens after launch — maintenance, SEO cadence, iteration.</li>
+            </ol>
+          </div>
+        </section>
+
+        <section id="pillars" class="section-anchor strategy-card card shadow-sm mb-4">
+          <div class="card-header py-3 px-4 d-flex align-items-center gap-3">
+            <span class="section-badge">4</span>
+            <h2 class="h4 mb-0">Content pillars that convert</h2>
+          </div>
+          <div class="card-body p-4 p-md-5">
+            <p class="text-secondary">Each pillar maps to <code>project-scope</code> service lines and to the <a href="Content-Calendar-30-Day-Editors.html">30-day editor calendar</a>. Use <strong class="text-dark">Category</strong> + <strong class="text-dark">Topic/Angle</strong> from your weekly exports for reporting consistency.</p>
+
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="card h-100 pillar-card shadow-sm">
+                  <div class="card-header">Pillar 1 — Credibility &amp; process</div>
+                  <div class="card-body small text-secondary">
+                    <p class="mb-2"><strong class="text-dark">Objective:</strong> Reduce buyer anxiety; show how you work.</p>
+                    <p class="fw-semibold text-dark mb-1">Example posts</p>
+                    <ul class="mb-3">
+                      <li>“Our 4 phases from kickoff to launch (what happens every week).”</li>
+                      <li>Carousel: FAQs on timelines, revisions, and ownership.</li>
+                      <li>Video: “Red flags we see in RFPs — and how we fix them.”</li>
+                    </ul>
+                    <p class="mb-0"><strong class="text-dark">Category lean:</strong> Company Branding · Personal Branding · <strong class="text-dark">Angles:</strong> About Us, Educational.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card h-100 pillar-card shadow-sm">
+                  <div class="card-header">Pillar 2 — Web, UX &amp; product craft</div>
+                  <div class="card-body small text-secondary">
+                    <p class="mb-2"><strong class="text-dark">Objective:</strong> Prove design/dev quality; teach conversion basics.</p>
+                    <p class="fw-semibold text-dark mb-1">Example posts</p>
+                    <ul class="mb-3">
+                      <li>Reel: hero section teardown (above-the-fold clarity).</li>
+                      <li>“Custom vs template — when each makes sense.”</li>
+                      <li>Case stills: mobile performance, accessibility callouts.</li>
+                    </ul>
+                    <p class="mb-0"><strong class="text-dark">Services:</strong> Custom Web, UI/UX, Landing pages · <strong class="text-dark">Angles:</strong> Service Solution, Educational.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card h-100 pillar-card shadow-sm">
+                  <div class="card-header">Pillar 3 — SEO &amp; measurable growth</div>
+                  <div class="card-body small text-secondary">
+                    <p class="mb-2"><strong class="text-dark">Objective:</strong> Build trust with ROI language; demystify SEO.</p>
+                    <p class="fw-semibold text-dark mb-1">Example posts</p>
+                    <ul class="mb-3">
+                      <li>“What belongs in a technical SEO audit (plain English).”</li>
+                      <li>Graph pattern: baseline → 90 days (illustrative, anonymized).</li>
+                      <li>Thread: local vs national SEO for SMBs.</li>
+                    </ul>
+                    <p class="mb-0"><strong class="text-dark">Service:</strong> SEO · <strong class="text-dark">Angles:</strong> Educational, Problem/Solution, Facts.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card h-100 pillar-card shadow-sm">
+                  <div class="card-header">Pillar 4 — Software, PWA &amp; platforms</div>
+                  <div class="card-body small text-secondary">
+                    <p class="mb-2"><strong class="text-dark">Objective:</strong> Show depth beyond marketing sites — integrations, scale.</p>
+                    <p class="fw-semibold text-dark mb-1">Example posts</p>
+                    <ul class="mb-3">
+                      <li>“When a business outgrows off-the-shelf tools.”</li>
+                      <li>PWA explainer: offline, install, speed — SMB use cases.</li>
+                      <li>Architecture diagram teaser (sanitized).</li>
+                    </ul>
+                    <p class="mb-0"><strong class="text-dark">Services:</strong> Custom Software, PWA · <strong class="text-dark">Angles:</strong> Service Solution, Educational.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card h-100 pillar-card shadow-sm">
+                  <div class="card-header">Pillar 5 — Brand &amp; graphic systems</div>
+                  <div class="card-body small text-secondary">
+                    <p class="mb-2"><strong class="text-dark">Objective:</strong> Win visual-first buyers; show cohesion across channels.</p>
+                    <p class="fw-semibold text-dark mb-1">Example posts</p>
+                    <ul class="mb-3">
+                      <li>Grid: identity system applied to web + social + print.</li>
+                      <li>“Three signs your brand looks ‘DIY’ on ads.”</li>
+                      <li>Motion sting / logo animation loop.</li>
+                    </ul>
+                    <p class="mb-0"><strong class="text-dark">Service:</strong> Graphic Design · <strong class="text-dark">Angles:</strong> Educational, Behind The Scenes.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="card pillar-card shadow-sm">
+                  <div class="card-header">Pillar 6 — AI agents, automation &amp; proof</div>
+                  <div class="card-body small text-secondary">
+                    <p class="mb-2"><strong class="text-dark">Objective:</strong> De-risk AI hype; tie to time saved and better CX; stack social proof.</p>
+                    <p class="fw-semibold text-dark mb-1">Example posts</p>
+                    <ul class="mb-3">
+                      <li>“Automation stack: form → CRM → slack alert (demo).”</li>
+                      <li>“Human handoff rules we ship with every agent.”</li>
+                      <li>Testimonial carousel / quote cards (permissioned).</li>
+                    </ul>
+                    <p class="mb-0"><strong class="text-dark">Service:</strong> AI Agent &amp; automation · <strong class="text-dark">Angles:</strong> Problem/Solution, Service Solution, Testimony.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="site-footer text-center text-muted small py-4 px-3 rounded-3 mt-2">
+          <p class="mb-1"><i class="bi bi-bootstrap me-1"></i>Monte Carlo Technologies · Strategy deliverable · Bootstrap 5</p>
+          <p class="mb-0 small">Next step: <a href="Content-Calendar-30-Day-Editors.html">Open the 30-day editor calendar</a></p>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monte Carlo Technologies — 30-Day Editor Calendar (1 post / day)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --mc-nav-start: #5c6d8e;
+      --mc-nav-end: #8093b3;
+      --mc-hero-end: #4a5a78;
+      --mc-surface: #f4f6fb;
+      --mc-card-border: rgba(92, 109, 142, 0.18);
+    }
+    html { overflow-x: hidden; }
+    body {
+      font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+      scroll-padding-top: 72px;
+      background: linear-gradient(180deg, var(--bs-gray-100) 0%, var(--mc-surface) 380px, var(--bs-gray-100) 100%);
+      overflow-x: hidden;
+    }
+    h1, h2, h3 { font-family: "Source Serif 4", Georgia, serif; letter-spacing: -0.02em; }
+    .navbar-mc {
+      background: linear-gradient(120deg, var(--mc-nav-start), var(--mc-nav-end));
+      box-shadow: 0 4px 24px rgba(92, 109, 142, 0.28);
+    }
+    .hero-calendar {
+      position: relative;
+      margin-top: 56px;
+      padding: 2rem 0 2.5rem;
+      background: linear-gradient(135deg, var(--mc-nav-start) 0%, var(--mc-hero-end) 55%, #3d4a63 100%);
+      color: #fff;
+      overflow: hidden;
+    }
+    .hero-calendar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+      background-size: 16px 16px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .hero-calendar .container { position: relative; z-index: 1; }
+    .hero-calendar a { color: #fff; }
+    @media (max-width: 575.98px) {
+      .hero-calendar h1.h2 { font-size: 1.35rem; line-height: 1.3; }
+    }
+    .calendar-card {
+      border: 1px solid var(--mc-card-border) !important;
+      border-radius: 0.75rem;
+      overflow: hidden;
+    }
+    .calendar-card .table-responsive {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+    }
+    .calendar-card .card-header {
+      background: linear-gradient(180deg, #fff 0%, var(--bs-gray-100) 100%);
+      border-bottom: 1px solid var(--mc-card-border);
+      font-family: "Source Serif 4", Georgia, serif;
+    }
+    .text-mc-accent { color: var(--mc-nav-start) !important; }
+    .table-calendar td { vertical-align: top; }
+    .col-time { white-space: nowrap; font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1; }
+    tr.row-cat-svc > td { background-color: rgba(92, 109, 142, 0.08); }
+    tr.row-cat-co > td { background-color: rgba(92, 109, 142, 0.045); }
+    tr.row-cat-per > td { background-color: rgba(74, 90, 120, 0.09); }
+    tr.row-cat-ev > td { background-color: rgba(140, 110, 85, 0.1); }
+    tr.row-cat-svc:hover > td, tr.row-cat-co:hover > td, tr.row-cat-per:hover > td, tr.row-cat-ev:hover > td {
+      filter: brightness(0.97);
+    }
+    .calendar-table-shell {
+      position: relative;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(92, 109, 142, 0.1);
+    }
+    .table-scroll-inner {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+      scrollbar-color: rgba(92, 109, 142, 0.45) var(--bs-gray-200);
+      scrollbar-width: thin;
+      max-width: 100%;
+    }
+    .table-scroll-inner::-webkit-scrollbar { height: 10px; }
+    .table-scroll-inner::-webkit-scrollbar-thumb {
+      background: linear-gradient(90deg, var(--mc-nav-start), var(--mc-nav-end));
+      border-radius: 999px;
+    }
+    .table-scroll-inner::-webkit-scrollbar-track { background: var(--bs-gray-200); border-radius: 999px; }
+    .table-master {
+      --bs-table-border-color: rgba(92, 109, 142, 0.2);
+      font-size: 0.8125rem;
+    }
+    .table-master thead th {
+      position: sticky;
+      top: calc(56px + env(safe-area-inset-top, 0px));
+      z-index: 1010;
+      font-size: 0.65rem;
+      line-height: 1.25;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 600;
+      padding: 0.55rem 0.45rem;
+      white-space: nowrap;
+      background: linear-gradient(180deg, #4f5f7a 0%, var(--mc-nav-start) 100%) !important;
+      color: #fff !important;
+      border-color: rgba(255,255,255,0.12) !important;
+    }
+    .table-master th:nth-child(1), .table-master td:nth-child(1) {
+      position: sticky; left: 0; z-index: 15; min-width: 4.25rem; width: 4.25rem;
+      white-space: nowrap; box-shadow: 4px 0 12px -4px rgba(45, 55, 72, 0.2);
+    }
+    .table-master th:nth-child(2), .table-master td:nth-child(2) {
+      position: sticky; left: 4.25rem; z-index: 14; min-width: 2.5rem; width: 2.5rem;
+      box-shadow: 4px 0 12px -4px rgba(45, 55, 72, 0.15);
+    }
+    .table-master th:nth-child(3), .table-master td:nth-child(3) {
+      position: sticky; left: 6.75rem; z-index: 13; min-width: 3.25rem; width: 3.25rem;
+      box-shadow: 4px 0 12px -4px rgba(45, 55, 72, 0.12);
+    }
+    .table-master thead th:nth-child(1) { z-index: 1030; left: 0; }
+    .table-master thead th:nth-child(2) { z-index: 1029; left: 4.25rem; }
+    .table-master thead th:nth-child(3) { z-index: 1028; left: 6.75rem; }
+    .table-master td:nth-child(9) {
+      min-width: 12rem; max-width: 20rem; font-weight: 500; color: var(--bs-gray-800); overflow-wrap: anywhere;
+    }
+    .table-master td:nth-child(10), .table-master td:nth-child(11) {
+      min-width: 10rem; max-width: 18rem; font-size: 0.78rem; line-height: 1.45; color: var(--bs-secondary);
+    }
+    .badge-cat-svc { background: var(--mc-nav-start) !important; }
+    .badge-cat-co { background: #6b7c99 !important; }
+    .badge-cat-per { background: #4a5a78 !important; }
+    .badge-cat-ev { background: #8b7355 !important; }
+    footer.site-footer { border-top: 1px solid var(--mc-card-border); background: #fff; }
+    /* Tablet / small laptop: tighter sticky band + readable cells */
+    @media (max-width: 991.98px) {
+      .table-master { font-size: 0.75rem; }
+      .table-master thead th { font-size: 0.6rem; padding: 0.45rem 0.35rem; }
+      .table-master td { padding: 0.45rem 0.4rem; }
+    }
+    @media (max-width: 767.98px) {
+      .hero-calendar { padding: 1.25rem 0 1.75rem; }
+      .hero-calendar .lead { font-size: 1rem; }
+      /* Align wide block with viewport edges (matches Bootstrap container padding) */
+      .calendar-table-shell {
+        border-radius: 0.5rem;
+        margin-left: calc(-0.5 * var(--bs-gutter-x, 1.5rem));
+        margin-right: calc(-0.5 * var(--bs-gutter-x, 1.5rem));
+        width: calc(100% + var(--bs-gutter-x, 1.5rem));
+        max-width: 100vw;
+      }
+      /* Card stack: one row per day, no sideways table on phones */
+      .table-scroll-inner {
+        overflow-x: visible;
+        -webkit-overflow-scrolling: auto;
+        padding: 0 0.125rem;
+      }
+      .table-master thead { display: none !important; }
+      .table-master colgroup { display: none; }
+      .table-master,
+      .table-master tbody,
+      .table-master tr,
+      .table-master td { display: block; width: 100%; box-sizing: border-box; }
+      .table-master tr {
+        margin-bottom: 1rem;
+        border: 1px solid var(--bs-table-border-color);
+        border-radius: 0.75rem;
+        overflow: hidden;
+        box-shadow: 0 2px 12px rgba(92, 109, 142, 0.08);
+      }
+      .table-master tbody tr:last-child { margin-bottom: 0; }
+      .table-master td {
+        position: relative;
+        padding: 0.55rem 0.75rem 0.55rem 42%;
+        border: none !important;
+        border-bottom: 1px solid rgba(92, 109, 142, 0.12) !important;
+        text-align: left !important;
+        white-space: normal !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        font-size: 0.875rem;
+        line-height: 1.45;
+      }
+      .table-master td:last-child { border-bottom: none !important; }
+      .table-master td::before {
+        position: absolute;
+        left: 0.75rem;
+        top: 0.55rem;
+        width: 36%;
+        font-size: 0.62rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--bs-secondary);
+        line-height: 1.3;
+        content: "";
+      }
+      .table-master td:nth-child(1)::before { content: "Date"; }
+      .table-master td:nth-child(2)::before { content: "Day"; }
+      .table-master td:nth-child(3)::before { content: "Time"; }
+      .table-master td:nth-child(4)::before { content: "Platform"; }
+      .table-master td:nth-child(5)::before { content: "Format"; }
+      .table-master td:nth-child(6)::before { content: "Category"; }
+      .table-master td:nth-child(7)::before { content: "Topic / angle"; }
+      .table-master td:nth-child(8)::before { content: "Service line"; }
+      .table-master td:nth-child(9)::before { content: "Working title"; }
+      .table-master td:nth-child(10)::before { content: "Shot list / assets"; }
+      .table-master td:nth-child(11)::before { content: "Caption direction"; }
+      .table-master th:nth-child(n),
+      .table-master td:nth-child(n) {
+        position: static !important;
+        left: auto !important;
+        z-index: auto !important;
+        box-shadow: none !important;
+      }
+      .table-master td.small { font-size: 0.8125rem; }
+    }
+    @media print {
+      .no-print { display: none !important; }
+      .table { font-size: 8pt; }
+      .hero-calendar { margin-top: 0; padding: 1rem 0; }
+      .calendar-table-shell { margin-left: 0; margin-right: 0; width: 100%; max-width: none; }
+      .table-scroll-inner { overflow: visible; padding: 0; }
+      .table-master thead { display: table-header-group !important; }
+      .table-master colgroup { display: table-column-group; }
+      .table-master { display: table !important; width: 100% !important; }
+      .table-master tbody { display: table-row-group !important; }
+      .table-master tr { display: table-row !important; margin: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+      .table-master td {
+        display: table-cell !important;
+        padding: 0.35rem !important;
+        border: 1px solid #ccc !important;
+        font-size: 8pt !important;
+      }
+      .table-master td::before { content: none !important; display: none !important; }
+      .table-master th, .table-master td { position: static !important; left: auto !important; box-shadow: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-dark navbar-mc fixed-top no-print shadow-sm">
+    <div class="container-fluid px-2 px-sm-3 d-flex flex-wrap align-items-center gap-2">
+      <span class="navbar-brand mb-0 d-flex align-items-center gap-2 flex-grow-1 flex-shrink-1 min-w-0 py-1">
+        <i class="bi bi-calendar3 fs-5 flex-shrink-0"></i>
+        <span class="fs-6 fw-semibold text-truncate d-none d-sm-inline">Monte Carlo · 30-day editor calendar</span>
+        <span class="fs-6 fw-semibold text-truncate d-sm-none">30-day calendar</span>
+      </span>
+      <a class="btn btn-outline-light btn-sm flex-shrink-0 ms-sm-auto" href="Social-Strategy-Deliverable.html"><i class="bi bi-journal-text d-none d-sm-inline me-1"></i><span class="d-sm-none">Strategy</span><span class="d-none d-sm-inline">Strategy doc</span></a>
+    </div>
+  </nav>
+
+  <header class="hero-calendar no-print">
+    <div class="container">
+      <p class="small mb-2 opacity-90"><i class="bi bi-clock me-1"></i>Default times are <strong>tentative</strong> — validate per weekday with Meta “When your followers are online” and <code class="text-dark bg-white bg-opacity-25 px-1 rounded">Timing &amp; Frequency.html</code> (Best Time Slot column).</p>
+      <h1 class="h2 fw-bold mb-2">April 2026 — <span class="text-white-50 d-block d-sm-inline">30 feed posts (1 per day)</span></h1>
+      <p class="lead mb-3 opacity-95">Editor handoff aligned to <a class="text-white text-decoration-underline" href="Social-Strategy-Deliverable.html#pillars">Social-Strategy-Deliverable.html</a> pillars. Labels match <code class="text-dark bg-white bg-opacity-25 px-1 rounded">Summary Metrics.html</code> <strong>Category</strong> + <strong>Topic/Angle</strong> taxonomy.</p>
+      <p class="small mb-0 opacity-90"><strong>Platforms:</strong> Default <strong>FB + IG</strong> mirror; add <strong>TikTok</strong> for vertical Reels when noted. <span class="badge badge-cat-svc">Service-Focused</span> <span class="badge badge-cat-co">Company Branding</span> <span class="badge badge-cat-per">Personal Branding</span> <span class="badge badge-cat-ev">Event Post</span></p>
+    </div>
+  </header>
+
+  <div class="container py-4 py-lg-5">
+    <section class="card calendar-card shadow-sm mb-4">
+      <div class="card-header fw-semibold py-3"><i class="bi bi-calendar-week me-2 text-secondary"></i>Weekly rhythm (suggested)</div>
+      <div class="card-body">
+        <div class="table-responsive rounded-3 border">
+          <table class="table table-sm table-bordered table-hover mb-0 bg-white">
+            <thead class="table-light"><tr><th>Day</th><th>Focus</th><th>Format lean</th></tr></thead>
+            <tbody class="small text-secondary">
+              <tr><td>Monday</td><td>Product / web craft &amp; UX</td><td>Reel or carousel teardown</td></tr>
+              <tr><td>Tuesday</td><td>SEO &amp; growth education</td><td>Carousel or graphic + long caption</td></tr>
+              <tr><td>Wednesday</td><td>Software / PWA / systems</td><td>Screen-record or diagram slide</td></tr>
+              <tr><td>Thursday</td><td>AI / automation (grounded)</td><td>Talking head + checklist overlay</td></tr>
+              <tr><td>Friday</td><td>Proof, offers, consult CTA</td><td>Case frame, testimonial, FAQ</td></tr>
+              <tr><td>Saturday</td><td>Brand / graphic systems</td><td>Portfolio grid, BTS</td></tr>
+              <tr><td>Sunday</td><td>Thought leadership or lighter culture</td><td>Single image, quote, or short Reel</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="small text-muted mt-2 mb-0"><strong>Specs:</strong> Reels 9:16 safe zones; burned-in captions; end card with logo + CTA (consult / site). Blur sensitive client UI unless approved.</p>
+      </div>
+    </section>
+
+    <section class="mb-4" id="schedule">
+      <h2 class="h4 mb-2">April 1–30, 2026 <span class="text-secondary fw-normal fs-6">— master schedule</span></h2>
+      <p class="small text-secondary mb-2">Time column uses the sheet pattern <em>where weekday matches</em>: Mon 9:00 · Tue 10:00 · Wed 10:00 · Thu 16:00 · Fri 9:00 · Sat 17:00 · Sun 9:00 (adjust when MBS disagrees).</p>
+      <p class="d-none d-md-flex d-lg-none align-items-center gap-2 small text-secondary mb-0"><i class="bi bi-arrow-left-right flex-shrink-0 text-mc-accent"></i><span>Swipe sideways; first columns stay pinned.</span></p>
+      <p class="d-md-none small text-secondary mb-0"><i class="bi bi-stack me-1 text-mc-accent"></i>Below: one card per day — scroll the list.</p>
+    </section>
+
+    <div class="calendar-table-shell border bg-white mt-2">
+      <div class="table-scroll-inner">
+      <table class="table table-sm table-bordered table-calendar table-master mb-0 bg-white table-hover">
+        <colgroup>
+          <col><col><col><col><col><col><col><col><col><col><col>
+        </colgroup>
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Day</th>
+            <th scope="col" class="col-time">Time</th>
+            <th scope="col">Platform</th>
+            <th scope="col">Format</th>
+            <th scope="col">Category</th>
+            <th scope="col">Topic/Angle</th>
+            <th scope="col">Service line</th>
+            <th scope="col">Working title</th>
+            <th scope="col">Shot list / assets</th>
+            <th scope="col">Caption direction</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row-cat-svc"><td>Apr 1</td><td>Wed</td><td class="col-time">10:00</td><td>FB + IG</td><td>Carousel (5)</td><td>Service-Focused</td><td>Service Solution</td><td>Custom Web</td><td>“5 homepage sections that actually convert (and 2 to delete)”</td><td class="small">Wireframe-style slides; no client logos unless cleared.</td><td class="small">Save for your next redesign. CTA: book a consult.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 2</td><td>Thu</td><td class="col-time">16:00</td><td>FB + IG + TT</td><td>Reel 35s</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“Technical SEO in 30 seconds: crawl, index, rank (plain English)”</td><td class="small">Three animated cards; simple icons; no guaranteed rankings language.</td><td class="small">Comment “AUDIT” if you want a checklist (then route to DM policy).</td></tr>
+          <tr class="row-cat-per"><td>Apr 3</td><td>Fri</td><td class="col-time">9:00</td><td>FB + IG</td><td>Reel 25s</td><td>Personal Branding</td><td>Behind The Scenes</td><td>Company</td><td>“Friday ship day: what we review before any launch”</td><td class="small">Desk B-roll; checklist overlay; team hands only if no releases signed.</td><td class="small">Trust through process. Link in bio.</td></tr>
+          <tr class="row-cat-co"><td>Apr 4</td><td>Sat</td><td class="col-time">17:00</td><td>FB + IG</td><td>Static</td><td>Company Branding</td><td>Facts</td><td>Graphic Design</td><td>“3 signs your brand looks ‘template-made’ on ads”</td><td class="small">Before/after style (generic mock brands).</td><td class="small">Educational hook; soft pitch to brand audit.</td></tr>
+          <tr class="row-cat-co"><td>Apr 5</td><td>Sun</td><td class="col-time">9:00</td><td>FB + IG</td><td>Single + caption</td><td>Company Branding</td><td>Educational</td><td>Landing Page</td><td>“Landing page vs website: when you need a dedicated funnel”</td><td class="small">Split diagram graphic.</td><td class="small">Thought leadership; CTA to strategy call.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 6</td><td>Mon</td><td class="col-time">9:00</td><td>FB + IG</td><td>Carousel (6)</td><td>Service-Focused</td><td>Problem/Solution</td><td>Custom Web</td><td>“Site feels slow? 6 places we look first (not just ‘clear cache’)”</td><td class="small">Mix of metrics placeholders + tool-agnostic tips.</td><td class="small">Build authority; invite performance consult.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 7</td><td>Tue</td><td class="col-time">10:00</td><td>FB + IG + TT</td><td>Reel 30s</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“Local SEO reality check: maps pack vs organic”</td><td class="small">Map mockup; keep claims conservative.</td><td class="small">Offer free resource if you have one; else consult CTA.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 8</td><td>Wed</td><td class="col-time">10:00</td><td>FB + IG</td><td>Reel 40s</td><td>Service-Focused</td><td>Service Solution</td><td>Custom Software</td><td>“When spreadsheets become risk (signals you need a real system)”</td><td class="small">Humorous office B-roll; relatable scenarios.</td><td class="small">Tag a founder who needs this — sparingly.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 9</td><td>Thu</td><td class="col-time">16:00</td><td>FB + IG + TT</td><td>Reel 28s</td><td>Service-Focused</td><td>Problem/Solution</td><td>AI Agent</td><td>“AI support that doesn’t annoy customers: 3 guardrails we ship”</td><td class="small">Simple flowchart animation; human handoff beat.</td><td class="small">Transparency beats hype; book automation consult.</td></tr>
+          <tr class="row-cat-per"><td>Apr 10</td><td>Fri</td><td class="col-time">9:00</td><td>FB + IG</td><td>Reel 22s</td><td>Personal Branding</td><td>Motivational</td><td>Company</td><td>“The real cost isn’t the website — it’s the six months you wait”</td><td class="small">Founder talking head; respectful tone.</td><td class="small">Strong CTA; consult or site link.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 11</td><td>Sat</td><td class="col-time">17:00</td><td>FB + IG</td><td>Carousel (4)</td><td>Service-Focused</td><td>Service Solution</td><td>UI/UX Design</td><td>“Mobile-first isn’t a buzzword — it’s your revenue screen”</td><td class="small">Thumb-zone illustration; UI mocks (fictional).</td><td class="small">Save carousel; follow for part 2.</td></tr>
+          <tr class="row-cat-co"><td>Apr 12</td><td>Sun</td><td class="col-time">9:00</td><td>FB + IG</td><td>Static</td><td>Company Branding</td><td>About Us</td><td>Company</td><td>“Why Monte Carlo leads with process before pixels”</td><td class="small">Team or office stock you’re licensed to use.</td><td class="small">Humanize the brand; CTA: meet the team / call.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 13</td><td>Mon</td><td class="col-time">9:00</td><td>FB + IG + TT</td><td>Reel 32s</td><td>Service-Focused</td><td>Educational</td><td>PWA</td><td>“Installable web apps: who actually benefits on mobile?”</td><td class="small">Phone screen record of skeleton PWA; clarify not every business needs it.</td><td class="small">Invite DMs for fit assessment.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 14</td><td>Tue</td><td class="col-time">10:00</td><td>FB + IG</td><td>Carousel (7)</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“7 questions to ask before you hire an SEO partner”</td><td class="small">Bold type slides; last slide CTA.</td><td class="small">Positions you as honest operators.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 15</td><td>Wed</td><td class="col-time">10:00</td><td>FB + IG</td><td>Reel 35s</td><td>Service-Focused</td><td>Service Solution</td><td>Landing Page</td><td>“One offer, one page, one CTA — walkthrough of a focused funnel”</td><td class="small">Generic landing mock; highlight hero + proof + CTA.</td><td class="small">Pair with consult for funnel mapping.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 16</td><td>Thu</td><td class="col-time">16:00</td><td>FB + IG + TT</td><td>Reel 26s</td><td>Service-Focused</td><td>Service Solution</td><td>AI Agent</td><td>“Lead routing demo: form → qualify → notify (sanitized)”</td><td class="small">Blur all PII; label “sample workflow.”</td><td class="small">Emphasize compliance + human review.</td></tr>
+          <tr class="row-cat-co"><td>Apr 17</td><td>Fri</td><td class="col-time">9:00</td><td>FB + IG</td><td>Carousel (5)</td><td>Company Branding</td><td>Testimony</td><td>Custom Web</td><td>“What clients say after launch (quotes you can actually verify)”</td><td class="small">Use only approved testimonials; logo permissions.</td><td class="small">Social proof Friday; CTA book call.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 18</td><td>Sat</td><td class="col-time">17:00</td><td>FB + IG</td><td>Reel 20s</td><td>Service-Focused</td><td>Behind The Scenes</td><td>Graphic Design</td><td>“From moodboard to component library in 20 seconds (sped up)”</td><td class="small">Time-lapse; show craft, not client secrets.</td><td class="small">Build desire for cohesive identity.</td></tr>
+          <tr class="row-cat-per"><td>Apr 19</td><td>Sun</td><td class="col-time">9:00</td><td>FB + IG</td><td>Single</td><td>Personal Branding</td><td>Credibility</td><td>Company</td><td>“We’re not the cheapest — here’s what you get instead”</td><td class="small">Clean typography poster style.</td><td class="small">Qualify leads; invite serious buyers.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 20</td><td>Mon</td><td class="col-time">9:00</td><td>FB + IG</td><td>Reel 38s</td><td>Service-Focused</td><td>Problem/Solution</td><td>Custom Software</td><td>“Custom build vs Saa dogpile: decision framework in under a minute”</td><td class="small">Split-screen comparison; neutral tone.</td><td class="small">Offer discovery workshop CTA.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 21</td><td>Tue</td><td class="col-time">10:00</td><td>FB + IG + TT</td><td>Reel 33s</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“On-page basics that still move the needle in 2026”</td><td class="small">Checklist overlays; examples generic.</td><td class="small">Comment with your industry for a tailored tip (moderated).</td></tr>
+          <tr class="row-cat-ev"><td>Apr 22</td><td>Wed</td><td class="col-time">10:00</td><td>FB + IG</td><td>Static</td><td>Event Post</td><td>Educational</td><td>Company</td><td>“Earth Day: digital sustainability — bloat costs money and carbon”</td><td class="small">Nature texture + simple stats (cite sources if you add numbers).</td><td class="small">Tie to performance audits + hosting choices.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 23</td><td>Thu</td><td class="col-time">16:00</td><td>FB + IG</td><td>Carousel (6)</td><td>Service-Focused</td><td>Service Solution</td><td>UI/UX Design</td><td>“Accessibility isn’t optional — quick wins that protect you + users”</td><td class="small">Contrast + tap target slides.</td><td class="small">Position ethical, professional delivery.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 24</td><td>Fri</td><td class="col-time">9:00</td><td>FB + IG + TT</td><td>Reel 30s</td><td>Service-Focused</td><td>Service Solution</td><td>PWA</td><td>“Offline-first field teams: when a PWA beats a native app (cost)”</td><td class="small">Illustrative scenario; no false savings claims.</td><td class="small">Invite consult for architecture review.</td></tr>
+          <tr class="row-cat-per"><td>Apr 25</td><td>Sat</td><td class="col-time">17:00</td><td>FB + IG</td><td>Reel 24s</td><td>Personal Branding</td><td>Behind The Scenes</td><td>Company</td><td>“Tools we actually use to keep client projects on schedule”</td><td class="small">Screen snips of generic tools (blur names if needed).</td><td class="small">Relatable ops content.</td></tr>
+          <tr class="row-cat-co"><td>Apr 26</td><td>Sun</td><td class="col-time">9:00</td><td>FB + IG</td><td>Carousel (3)</td><td>Company Branding</td><td>Educational</td><td>Graphic Design</td><td>“Brand system cheat sheet: what to hand off to any designer”</td><td class="small">Logo, type, color, spacing slides.</td><td class="small">Save + share with marketing leads.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 27</td><td>Mon</td><td class="col-time">9:00</td><td>FB + IG</td><td>Reel 36s</td><td>Service-Focused</td><td>Service Solution</td><td>Custom Web</td><td>“Headless vs monolith for SMBs — without the computer science degree”</td><td class="small">Simple analogy graphics.</td><td class="small">CTA: architecture consult if complex.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 28</td><td>Tue</td><td class="col-time">10:00</td><td>FB + IG + TT</td><td>Reel 29s</td><td>Service-Focused</td><td>Educational</td><td>SEO</td><td>“The myth of ‘we’ll SEO it after launch’”</td><td class="small">Stop-motion sticky notes or kinetic text.</td><td class="small">Route to site audit offer.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 29</td><td>Wed</td><td class="col-time">10:00</td><td>FB + IG</td><td>Reel 34s</td><td>Service-Focused</td><td>Problem/Solution</td><td>Custom Software</td><td>“Integrations that fail silently — how we instrument workflows”</td><td class="small">Abstract diagram; no client internals.</td><td class="small">Invite technical discovery call.</td></tr>
+          <tr class="row-cat-svc"><td>Apr 30</td><td>Thu</td><td class="col-time">16:00</td><td>FB + IG</td><td>Carousel (5)</td><td>Service-Focused</td><td>Service Solution</td><td>AI Agent</td><td>“Month-end recap: 5 automation ideas you can steal (with ethics)”</td><td class="small">Numbered slides; disclaim review with legal if needed.</td><td class="small">Strong CTA to May campaign / newsletter if applicable.</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <footer class="site-footer text-muted small py-4 px-3 text-center rounded-3 mt-3">
+      <p class="mb-0"><i class="bi bi-calendar-check me-1"></i>Monte Carlo Technologies · April 2026 · 30 posts · <a href="Social-Strategy-Deliverable.html">Strategy framework</a></p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
